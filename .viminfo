@@ -12,6 +12,7 @@
 
 # Command Line History (newest to oldest):
 :wq
+:q
 :q!
 :q1
 :43
@@ -19,7 +20,6 @@
 :w
 :!cat /etc/hosts
 :a1
-:q
 
 # Search String History (newest to oldest):
 ?/mongo
@@ -88,19 +88,20 @@
 	^
 
 # File marks:
-'0  1  1  ~/.gitignore
-'1  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
-'2  41  0  ~/inventory.ini
-'3  768  0  ~/scale/out
-'4  43  2  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
-'5  763  8  ~/scale/out
-'6  14  63  ~/inventory.ini
-'7  22  14  /etc/hosts
-'8  20  0  /etc/hosts
-'9  1  0  ~/helm-charts/stable/mongodb/Chart.yaml
+'0  2  10  ~/.gitignore
+'1  1  0  ~/.gitignore
+'2  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
+'3  41  0  ~/inventory.ini
+'4  768  0  ~/scale/out
+'5  43  2  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
+'6  763  8  ~/scale/out
+'7  14  63  ~/inventory.ini
+'8  22  14  /etc/hosts
+'9  20  0  /etc/hosts
 
 # Jumplist (newest first):
--'  1  1  ~/.gitignore
+-'  2  10  ~/.gitignore
+-'  1  0  ~/.gitignore
 -'  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 -'  43  2  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 -'  41  0  ~/inventory.ini
@@ -201,10 +202,11 @@
 # History of marks within files (newest to oldest):
 
 > ~/.gitignore
-	"	1	1
-	^	1	2
-	.	1	1
-	+	1	1
+	"	2	10
+	^	2	11
+	.	2	10
+	+	1	2
+	+	2	10
 
 > ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 	"	53	12
