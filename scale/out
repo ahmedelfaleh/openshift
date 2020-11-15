@@ -1,0 +1,776 @@
+ansible-playbook 2.9.10
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible-playbook
+  python version = 2.7.5 (default, Apr  2 2020, 13:16:51) [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]
+Using /etc/ansible/ansible.cfg as config file
+statically imported: /root/openshift-ansible/roles/rhel_subscribe/tasks/satellite.yml
+statically imported: /root/openshift-ansible/roles/nuage_node/tasks/firewall.yml
+statically imported: /root/openshift-ansible/roles/aci/tasks/firewall.yml
+
+PLAYBOOK: join.yml ***********************************************************************************************************
+31 plays in openshift-ansible/playbooks/openshift-node/join.yml
+
+PLAY [Initialization Checkpoint Start] ***************************************************************************************
+META: ran handlers
+
+TASK [Set install initialization 'In Progress'] ******************************************************************************
+task path: /root/openshift-ansible/playbooks/init/main.yml:11
+ok: [46.101.141.5] => {"ansible_stats": {"aggregate": true, "data": {"installer_phase_initialize": {"playbook": "", "start": "20201028155458Z", "status": "In Progress", "title": "Initialization"}}, "per_host": false}, "changed": false}
+META: ran handlers
+META: ran handlers
+
+PLAY [Populate config host groups] *******************************************************************************************
+META: ran handlers
+
+TASK [Load group name mapping variables] *************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:7
+ok: [localhost] => {"ansible_facts": {"g_all_hosts": "{{ g_master_hosts | union(g_node_hosts) | union(g_etcd_hosts) | union(g_new_etcd_hosts) | union(g_lb_hosts) | union(g_nfs_hosts) | union(g_new_node_hosts)| union(g_new_master_hosts) | default([]) }}", "g_etcd_hosts": "{{ groups.etcd | default([]) }}", "g_glusterfs_hosts": "{{ groups.glusterfs | default([]) }}", "g_glusterfs_registry_hosts": "{{ groups.glusterfs_registry | default(g_glusterfs_hosts) }}", "g_lb_hosts": "{{ groups.lb | default([]) }}", "g_master_hosts": "{{ groups.masters | default([]) }}", "g_new_etcd_hosts": "{{ groups.new_etcd | default([]) }}", "g_new_master_hosts": "{{ groups.new_masters | default([]) }}", "g_new_node_hosts": "{{ groups.new_nodes | default([]) }}", "g_nfs_hosts": "{{ groups.nfs | default([]) }}", "g_node_hosts": "{{ groups.nodes | default([]) }}"}, "ansible_included_var_files": ["/root/openshift-ansible/playbooks/init/vars/cluster_hosts.yml"], "changed": false}
+
+TASK [Evaluate groups - g_nfs_hosts is single host] **************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:10
+skipping: [localhost] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Evaluate oo_all_hosts] *************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:15
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => (item=46.101.141.5) => {"add_host": {"groups": ["oo_all_hosts"], "host_name": "46.101.141.5", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "46.101.141.5"}
+creating host via 'add_host': hostname=161.35.205.185
+ok: [localhost] => (item=161.35.205.185) => {"add_host": {"groups": ["oo_all_hosts"], "host_name": "161.35.205.185", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "161.35.205.185"}
+creating host via 'add_host': hostname=198.199.80.136
+ok: [localhost] => (item=198.199.80.136) => {"add_host": {"groups": ["oo_all_hosts"], "host_name": "198.199.80.136", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "198.199.80.136"}
+creating host via 'add_host': hostname=134.122.114.27
+ok: [localhost] => (item=134.122.114.27) => {"add_host": {"groups": ["oo_all_hosts"], "host_name": "134.122.114.27", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "134.122.114.27"}
+
+TASK [Evaluate oo_masters] ***************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:24
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => (item=46.101.141.5) => {"add_host": {"groups": ["oo_masters"], "host_name": "46.101.141.5", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "46.101.141.5"}
+
+TASK [Evaluate oo_first_master] **********************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:33
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => {"add_host": {"groups": ["oo_first_master"], "host_name": "46.101.141.5", "host_vars": {}}, "changed": false}
+
+TASK [Evaluate oo_new_etcd_to_config] ****************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:42
+
+TASK [Evaluate oo_masters_to_config] *****************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:51
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => (item=46.101.141.5) => {"add_host": {"groups": ["oo_masters_to_config"], "host_name": "46.101.141.5", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "46.101.141.5"}
+
+TASK [Evaluate oo_etcd_to_config] ********************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:60
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => (item=46.101.141.5) => {"add_host": {"groups": ["oo_etcd_to_config"], "host_name": "46.101.141.5", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "46.101.141.5"}
+
+TASK [Evaluate oo_first_etcd] ************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:69
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => {"add_host": {"groups": ["oo_first_etcd"], "host_name": "46.101.141.5", "host_vars": {}}, "changed": false}
+
+TASK [Evaluate oo_etcd_hosts_to_upgrade] *************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:81
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => (item=46.101.141.5) => {"add_host": {"groups": ["oo_etcd_hosts_to_upgrade"], "host_name": "46.101.141.5", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "46.101.141.5"}
+
+TASK [Evaluate oo_etcd_hosts_to_backup] **************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:88
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => (item=46.101.141.5) => {"add_host": {"groups": ["oo_etcd_hosts_to_backup"], "host_name": "46.101.141.5", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "46.101.141.5"}
+
+TASK [Evaluate oo_nodes_to_config] *******************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:95
+creating host via 'add_host': hostname=198.199.80.136
+ok: [localhost] => (item=198.199.80.136) => {"add_host": {"groups": ["oo_nodes_to_config"], "host_name": "198.199.80.136", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "198.199.80.136"}
+creating host via 'add_host': hostname=134.122.114.27
+ok: [localhost] => (item=134.122.114.27) => {"add_host": {"groups": ["oo_nodes_to_config"], "host_name": "134.122.114.27", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "134.122.114.27"}
+
+TASK [Evaluate oo_lb_to_config] **********************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:104
+
+TASK [Evaluate oo_nfs_to_config] *********************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:113
+
+TASK [Evaluate oo_glusterfs_to_config] ***************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:122
+
+TASK [Evaluate oo_etcd_to_migrate] *******************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/evaluate_groups.yml:131
+creating host via 'add_host': hostname=46.101.141.5
+ok: [localhost] => (item=46.101.141.5) => {"add_host": {"groups": ["oo_etcd_to_migrate"], "host_name": "46.101.141.5", "host_vars": {}}, "ansible_loop_var": "item", "changed": false, "item": "46.101.141.5"}
+META: ran handlers
+META: ran handlers
+
+PLAY [Ensure that all non-node hosts are accessible] *************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:2
+ok: [46.101.141.5]
+META: ran handlers
+META: ran handlers
+META: ran handlers
+
+PLAY [Initialize basic host facts] *******************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:7
+ok: [161.35.205.185]
+ok: [46.101.141.5]
+ok: [134.122.114.27]
+ok: [198.199.80.136]
+META: ran handlers
+
+TASK [openshift_sanitize_inventory : include_tasks] **************************************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:4
+statically imported: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/__deprecations_logging.yml
+included: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/deprecations.yml for 46.101.141.5, 161.35.205.185, 198.199.80.136, 134.122.114.27
+
+TASK [openshift_sanitize_inventory : Check for usage of deprecated variables] ************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/deprecations.yml:4
+ok: [161.35.205.185] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+ok: [46.101.141.5] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+ok: [198.199.80.136] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+ok: [134.122.114.27] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+
+TASK [openshift_sanitize_inventory : debug] **********************************************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/deprecations.yml:13
+skipping: [46.101.141.5] => {}
+skipping: [161.35.205.185] => {}
+skipping: [198.199.80.136] => {}
+skipping: [134.122.114.27] => {}
+
+TASK [openshift_sanitize_inventory : set_stats] ******************************************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/deprecations.yml:14
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : set_fact] *******************************************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/__deprecations_logging.yml:10
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_logging_elasticsearch_ops_pvc_dynamic": "", "openshift_logging_elasticsearch_ops_pvc_prefix": "", "openshift_logging_elasticsearch_ops_pvc_size": "", "openshift_logging_elasticsearch_pvc_dynamic": "", "openshift_logging_elasticsearch_pvc_prefix": "", "openshift_logging_elasticsearch_pvc_size": ""}, "changed": false}
+ok: [161.35.205.185] => {"ansible_facts": {"openshift_logging_elasticsearch_ops_pvc_dynamic": "", "openshift_logging_elasticsearch_ops_pvc_prefix": "", "openshift_logging_elasticsearch_ops_pvc_size": "", "openshift_logging_elasticsearch_pvc_dynamic": "", "openshift_logging_elasticsearch_pvc_prefix": "", "openshift_logging_elasticsearch_pvc_size": ""}, "changed": false}
+ok: [198.199.80.136] => {"ansible_facts": {"openshift_logging_elasticsearch_ops_pvc_dynamic": "", "openshift_logging_elasticsearch_ops_pvc_prefix": "", "openshift_logging_elasticsearch_ops_pvc_size": "", "openshift_logging_elasticsearch_pvc_dynamic": "", "openshift_logging_elasticsearch_pvc_prefix": "", "openshift_logging_elasticsearch_pvc_size": ""}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"openshift_logging_elasticsearch_ops_pvc_dynamic": "", "openshift_logging_elasticsearch_ops_pvc_prefix": "", "openshift_logging_elasticsearch_ops_pvc_size": "", "openshift_logging_elasticsearch_pvc_dynamic": "", "openshift_logging_elasticsearch_pvc_prefix": "", "openshift_logging_elasticsearch_pvc_size": ""}, "changed": false}
+
+TASK [openshift_sanitize_inventory : Standardize on latest variable names] ***************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:7
+ok: [46.101.141.5] => {"ansible_facts": {"deployment_subtype": "basic", "openshift_deployment_subtype": "basic"}, "changed": false}
+ok: [161.35.205.185] => {"ansible_facts": {"deployment_subtype": "basic", "openshift_deployment_subtype": "basic"}, "changed": false}
+ok: [198.199.80.136] => {"ansible_facts": {"deployment_subtype": "basic", "openshift_deployment_subtype": "basic"}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"deployment_subtype": "basic", "openshift_deployment_subtype": "basic"}, "changed": false}
+
+TASK [openshift_sanitize_inventory : Normalize openshift_release] ************************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:12
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Abort when openshift_release is invalid] ************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:22
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : include_tasks] **************************************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:31
+included: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/unsupported.yml for 46.101.141.5, 161.35.205.185, 198.199.80.136, 134.122.114.27
+
+TASK [openshift_sanitize_inventory : set_fact] *******************************************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/unsupported.yml:5
+
+TASK [openshift_sanitize_inventory : Ensure that dynamic provisioning is set if using dynamic storage] ***********************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/unsupported.yml:12
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure the hosted registry's GlusterFS storage is configured correctly] *****************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/unsupported.yml:28
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure the hosted registry's GlusterFS storage is configured correctly] *****************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/unsupported.yml:41
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Check for deprecated prometheus/grafana install] ****************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/unsupported.yml:53
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure clusterid is set along with the cloudprovider] ***********************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:35
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure ansible_service_broker_remove and ansible_service_broker_install are mutually exclusive] ***
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:48
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure template_service_broker_remove and template_service_broker_install are mutually exclusive] ***
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:57
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure that all requires vsphere configuration variables are set] ***********************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:66
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : ensure provider configuration variables are defined] ************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:83
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure removed web console extension variables are not set] *****************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:98
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure that web console port matches API server port] ***********************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:109
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : At least one master is schedulable] *****************************************************
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:119
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_sanitize_inventory : Ensure openshift_master_cluster_hostname is set when deploying multiple masters] ********
+task path: /root/openshift-ansible/roles/openshift_sanitize_inventory/tasks/main.yml:131
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Detecting Operating System from ostree_booted] *************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:19
+ok: [161.35.205.185] => {"changed": false, "stat": {"exists": false}}
+ok: [46.101.141.5] => {"changed": false, "stat": {"exists": false}}
+ok: [134.122.114.27] => {"changed": false, "stat": {"exists": false}}
+ok: [198.199.80.136] => {"changed": false, "stat": {"exists": false}}
+
+TASK [set openshift_deployment_type if unset] ********************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:28
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [initialize_facts set fact openshift_is_atomic] *************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:35
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_is_atomic": false}, "changed": false}
+ok: [161.35.205.185] => {"ansible_facts": {"openshift_is_atomic": false}, "changed": false}
+ok: [198.199.80.136] => {"ansible_facts": {"openshift_is_atomic": false}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"openshift_is_atomic": false}, "changed": false}
+
+TASK [Determine Atomic Host Docker Version] **********************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:51
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [assert atomic host docker version is 1.12 or later] ********************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:55
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+META: ran handlers
+META: ran handlers
+
+PLAY [Retrieve existing master configs and validate] *************************************************************************
+META: ran handlers
+
+TASK [openshift_control_plane : stat] ****************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_control_plane/tasks/check_existing_config.yml:3
+ok: [46.101.141.5] => {"changed": false, "stat": {"atime": 1603895633.3920448, "block_size": 4096, "blocks": 16, "ctime": 1595509313.5426526, "dev": 64769, "device_type": 0, "executable": false, "exists": true, "gid": 0, "gr_name": "root", "inode": 603982225, "isblk": false, "ischr": false, "isdir": false, "isfifo": false, "isgid": false, "islnk": false, "isreg": true, "issock": false, "isuid": false, "mode": "0644", "mtime": 1595509313.5426526, "nlink": 1, "path": "/etc/origin/master/master-config.yaml", "pw_name": "root", "readable": true, "rgrp": true, "roth": true, "rusr": true, "size": 5721, "uid": 0, "wgrp": false, "woth": false, "writeable": true, "wusr": true, "xgrp": false, "xoth": false, "xusr": false}}
+
+TASK [openshift_control_plane : slurp] ***************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_control_plane/tasks/check_existing_config.yml:10
+ok: [46.101.141.5] => {"changed": false, "content": "YWRtaXNzaW9uQ29uZmlnOgogIHBsdWdpbkNvbmZpZzoKICAgIEJ1aWxkRGVmYXVsdHM6CiAgICAgIGNvbmZpZ3VyYXRpb246CiAgICAgICAgYXBpVmVyc2lvbjogdjEKICAgICAgICBlbnY6IFtdCiAgICAgICAga2luZDogQnVpbGREZWZhdWx0c0NvbmZpZwogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIGxpbWl0czoge30KICAgICAgICAgIHJlcXVlc3RzOiB7fQogICAgQnVpbGRPdmVycmlkZXM6CiAgICAgIGNvbmZpZ3VyYXRpb246CiAgICAgICAgYXBpVmVyc2lvbjogdjEKICAgICAgICBraW5kOiBCdWlsZE92ZXJyaWRlc0NvbmZpZwogICAgb3BlbnNoaWZ0LmlvL0ltYWdlUG9saWN5OgogICAgICBjb25maWd1cmF0aW9uOgogICAgICAgIGFwaVZlcnNpb246IHYxCiAgICAgICAgZXhlY3V0aW9uUnVsZXM6CiAgICAgICAgLSBtYXRjaEltYWdlQW5ub3RhdGlvbnM6CiAgICAgICAgICAtIGtleTogaW1hZ2VzLm9wZW5zaGlmdC5pby9kZW55LWV4ZWN1dGlvbgogICAgICAgICAgICB2YWx1ZTogJ3RydWUnCiAgICAgICAgICBuYW1lOiBleGVjdXRpb24tZGVuaWVkCiAgICAgICAgICBvblJlc291cmNlczoKICAgICAgICAgIC0gcmVzb3VyY2U6IHBvZHMKICAgICAgICAgIC0gcmVzb3VyY2U6IGJ1aWxkcwogICAgICAgICAgcmVqZWN0OiB0cnVlCiAgICAgICAgICBza2lwT25SZXNvbHV0aW9uRmFpbHVyZTogdHJ1ZQogICAgICAgIGtpbmQ6IEltYWdlUG9saWN5Q29uZmlnCmFnZ3JlZ2F0b3JDb25maWc6CiAgcHJveHlDbGllbnRJbmZvOgogICAgY2VydEZpbGU6IGFnZ3JlZ2F0b3ItZnJvbnQtcHJveHkuY3J0CiAgICBrZXlGaWxlOiBhZ2dyZWdhdG9yLWZyb250LXByb3h5LmtleQphcGlMZXZlbHM6Ci0gdjEKYXBpVmVyc2lvbjogdjEKYXV0aENvbmZpZzoKICByZXF1ZXN0SGVhZGVyOgogICAgY2xpZW50Q0E6IGZyb250LXByb3h5LWNhLmNydAogICAgY2xpZW50Q29tbW9uTmFtZXM6CiAgICAtIGFnZ3JlZ2F0b3ItZnJvbnQtcHJveHkKICAgIGV4dHJhSGVhZGVyUHJlZml4ZXM6CiAgICAtIFgtUmVtb3RlLUV4dHJhLQogICAgZ3JvdXBIZWFkZXJzOgogICAgLSBYLVJlbW90ZS1Hcm91cAogICAgdXNlcm5hbWVIZWFkZXJzOgogICAgLSBYLVJlbW90ZS1Vc2VyCmNvbnRyb2xsZXJDb25maWc6CiAgZWxlY3Rpb246CiAgICBsb2NrTmFtZTogb3BlbnNoaWZ0LW1hc3Rlci1jb250cm9sbGVycwogIHNlcnZpY2VTZXJ2aW5nQ2VydDoKICAgIHNpZ25lcjoKICAgICAgY2VydEZpbGU6IHNlcnZpY2Utc2lnbmVyLmNydAogICAgICBrZXlGaWxlOiBzZXJ2aWNlLXNpZ25lci5rZXkKY29udHJvbGxlcnM6ICcqJwpjb3JzQWxsb3dlZE9yaWdpbnM6Ci0gKD9pKS8vMTI3XC4wXC4wXC4xKDp8XHopCi0gKD9pKS8vbG9jYWxob3N0KDp8XHopCi0gKD9pKS8vNDZcLjEwMVwuMTQxXC41KDp8XHopCi0gKD9pKS8va3ViZXJuZXRlc1wuZGVmYXVsdCg6fFx6KQotICg/aSkvL2t1YmVybmV0ZXNcLmRlZmF1bHRcLnN2Y1wuY2x1c3RlclwubG9jYWwoOnxceikKLSAoP2kpLy9rdWJlcm5ldGVzKDp8XHopCi0gKD9pKS8vb3BlbnNoaWZ0XC5kZWZhdWx0KDp8XHopCi0gKD9pKS8vY29uc29sZVwuZmFsZWhcLmxvY2FsKDp8XHopCi0gKD9pKS8vb3BlbnNoaWZ0XC5kZWZhdWx0XC5zdmMoOnxceikKLSAoP2kpLy8xNzJcLjMwXC4wXC4xKDp8XHopCi0gKD9pKS8vb3BlbnNoaWZ0XC5kZWZhdWx0XC5zdmNcLmNsdXN0ZXJcLmxvY2FsKDp8XHopCi0gKD9pKS8va3ViZXJuZXRlc1wuZGVmYXVsdFwuc3ZjKDp8XHopCi0gKD9pKS8vb3BlbnNoaWZ0KDp8XHopCi0gKD9pKS8vbWFzdGVyXC5mYWxlaFwubG9jYWwoOnxceikKZG5zQ29uZmlnOgogIGJpbmRBZGRyZXNzOiAwLjAuMC4wOjgwNTMKICBiaW5kTmV0d29yazogdGNwNApldGNkQ2xpZW50SW5mbzoKICBjYTogbWFzdGVyLmV0Y2QtY2EuY3J0CiAgY2VydEZpbGU6IG1hc3Rlci5ldGNkLWNsaWVudC5jcnQKICBrZXlGaWxlOiBtYXN0ZXIuZXRjZC1jbGllbnQua2V5CiAgdXJsczoKICAtIGh0dHBzOi8vbWFzdGVyLmZhbGVoLmxvY2FsOjIzNzkKZXRjZFN0b3JhZ2VDb25maWc6CiAga3ViZXJuZXRlc1N0b3JhZ2VQcmVmaXg6IGt1YmVybmV0ZXMuaW8KICBrdWJlcm5ldGVzU3RvcmFnZVZlcnNpb246IHYxCiAgb3BlblNoaWZ0U3RvcmFnZVByZWZpeDogb3BlbnNoaWZ0LmlvCiAgb3BlblNoaWZ0U3RvcmFnZVZlcnNpb246IHYxCmltYWdlQ29uZmlnOgogIGZvcm1hdDogZG9ja2VyLmlvL29wZW5zaGlmdC9vcmlnaW4tJHtjb21wb25lbnR9OiR7dmVyc2lvbn0KICBsYXRlc3Q6IGZhbHNlCmltYWdlUG9saWN5Q29uZmlnOgogIGludGVybmFsUmVnaXN0cnlIb3N0bmFtZTogZG9ja2VyLXJlZ2lzdHJ5LmRlZmF1bHQuc3ZjOjUwMDAKa2luZDogTWFzdGVyQ29uZmlnCmt1YmVsZXRDbGllbnRJbmZvOgogIGNhOiBjYS1idW5kbGUuY3J0CiAgY2VydEZpbGU6IG1hc3Rlci5rdWJlbGV0LWNsaWVudC5jcnQKICBrZXlGaWxlOiBtYXN0ZXIua3ViZWxldC1jbGllbnQua2V5CiAgcG9ydDogMTAyNTAKa3ViZXJuZXRlc01hc3RlckNvbmZpZzoKICBhcGlTZXJ2ZXJBcmd1bWVudHM6CiAgICBzdG9yYWdlLWJhY2tlbmQ6CiAgICAtIGV0Y2QzCiAgICBzdG9yYWdlLW1lZGlhLXR5cGU6CiAgICAtIGFwcGxpY2F0aW9uL3ZuZC5rdWJlcm5ldGVzLnByb3RvYnVmCiAgY29udHJvbGxlckFyZ3VtZW50czoKICAgIGNsdXN0ZXItc2lnbmluZy1jZXJ0LWZpbGU6CiAgICAtIC9ldGMvb3JpZ2luL21hc3Rlci9jYS5jcnQKICAgIGNsdXN0ZXItc2lnbmluZy1rZXktZmlsZToKICAgIC0gL2V0Yy9vcmlnaW4vbWFzdGVyL2NhLmtleQogICAgcHYtcmVjeWNsZXItcG9kLXRlbXBsYXRlLWZpbGVwYXRoLWhvc3RwYXRoOgogICAgLSAvZXRjL29yaWdpbi9tYXN0ZXIvcmVjeWNsZXJfcG9kLnlhbWwKICAgIHB2LXJlY3ljbGVyLXBvZC10ZW1wbGF0ZS1maWxlcGF0aC1uZnM6CiAgICAtIC9ldGMvb3JpZ2luL21hc3Rlci9yZWN5Y2xlcl9wb2QueWFtbAogIG1hc3RlckNvdW50OiAxCiAgbWFzdGVySVA6IDQ2LjEwMS4xNDEuNQogIHBvZEV2aWN0aW9uVGltZW91dDogbnVsbAogIHByb3h5Q2xpZW50SW5mbzoKICAgIGNlcnRGaWxlOiBtYXN0ZXIucHJveHktY2xpZW50LmNydAogICAga2V5RmlsZTogbWFzdGVyLnByb3h5LWNsaWVudC5rZXkKICBzY2hlZHVsZXJBcmd1bWVudHM6IG51bGwKICBzY2hlZHVsZXJDb25maWdGaWxlOiAvZXRjL29yaWdpbi9tYXN0ZXIvc2NoZWR1bGVyLmpzb24KICBzZXJ2aWNlc05vZGVQb3J0UmFuZ2U6ICcnCiAgc2VydmljZXNTdWJuZXQ6IDE3Mi4zMC4wLjAvMTYKICBzdGF0aWNOb2RlTmFtZXM6IFtdCm1hc3RlckNsaWVudHM6CiAgZXh0ZXJuYWxLdWJlcm5ldGVzQ2xpZW50Q29ubmVjdGlvbk92ZXJyaWRlczoKICAgIGFjY2VwdENvbnRlbnRUeXBlczogYXBwbGljYXRpb24vdm5kLmt1YmVybmV0ZXMucHJvdG9idWYsYXBwbGljYXRpb24vanNvbgogICAgYnVyc3Q6IDQwMAogICAgY29udGVudFR5cGU6IGFwcGxpY2F0aW9uL3ZuZC5rdWJlcm5ldGVzLnByb3RvYnVmCiAgICBxcHM6IDIwMAogIGV4dGVybmFsS3ViZXJuZXRlc0t1YmVDb25maWc6ICcnCiAgb3BlbnNoaWZ0TG9vcGJhY2tDbGllbnRDb25uZWN0aW9uT3ZlcnJpZGVzOgogICAgYWNjZXB0Q29udGVudFR5cGVzOiBhcHBsaWNhdGlvbi92bmQua3ViZXJuZXRlcy5wcm90b2J1ZixhcHBsaWNhdGlvbi9qc29uCiAgICBidXJzdDogNjAwCiAgICBjb250ZW50VHlwZTogYXBwbGljYXRpb24vdm5kLmt1YmVybmV0ZXMucHJvdG9idWYKICAgIHFwczogMzAwCiAgb3BlbnNoaWZ0TG9vcGJhY2tLdWJlQ29uZmlnOiBvcGVuc2hpZnQtbWFzdGVyLmt1YmVjb25maWcKbWFzdGVyUHVibGljVVJMOiBodHRwczovL2NvbnNvbGUuZmFsZWgubG9jYWw6ODQ0MwpuZXR3b3JrQ29uZmlnOgogIGNsdXN0ZXJOZXR3b3JrczoKICAtIGNpZHI6IDEwLjEyOC4wLjAvMTQKICAgIGhvc3RTdWJuZXRMZW5ndGg6IDkKICBleHRlcm5hbElQTmV0d29ya0NJRFJzOgogIC0gMC4wLjAuMC8wCiAgbmV0d29ya1BsdWdpbk5hbWU6IHJlZGhhdC9vcGVuc2hpZnQtb3ZzLW11bHRpdGVuYW50CiAgc2VydmljZU5ldHdvcmtDSURSOiAxNzIuMzAuMC4wLzE2Cm9hdXRoQ29uZmlnOgogIGFzc2V0UHVibGljVVJMOiBodHRwczovL2NvbnNvbGUuZmFsZWgubG9jYWw6ODQ0My9jb25zb2xlLwogIGdyYW50Q29uZmlnOgogICAgbWV0aG9kOiBhdXRvCiAgaWRlbnRpdHlQcm92aWRlcnM6CiAgLSBjaGFsbGVuZ2U6IHRydWUKICAgIGxvZ2luOiB0cnVlCiAgICBtYXBwaW5nTWV0aG9kOiBjbGFpbQogICAgbmFtZTogaHRwYXNzd2RfYXV0aAogICAgcHJvdmlkZXI6CiAgICAgIGFwaVZlcnNpb246IHYxCiAgICAgIGZpbGU6IC9ldGMvb3JpZ2luL21hc3Rlci9odHBhc3N3ZAogICAgICBraW5kOiBIVFBhc3N3ZFBhc3N3b3JkSWRlbnRpdHlQcm92aWRlcgogIG1hc3RlckNBOiBjYS1idW5kbGUuY3J0CiAgbWFzdGVyUHVibGljVVJMOiBodHRwczovL2NvbnNvbGUuZmFsZWgubG9jYWw6ODQ0MwogIG1hc3RlclVSTDogaHR0cHM6Ly9tYXN0ZXIuZmFsZWgubG9jYWw6ODQ0MwogIHNlc3Npb25Db25maWc6CiAgICBzZXNzaW9uTWF4QWdlU2Vjb25kczogMzYwMAogICAgc2Vzc2lvbk5hbWU6IHNzbgogICAgc2Vzc2lvblNlY3JldHNGaWxlOiAvZXRjL29yaWdpbi9tYXN0ZXIvc2Vzc2lvbi1zZWNyZXRzLnlhbWwKICB0b2tlbkNvbmZpZzoKICAgIGFjY2Vzc1Rva2VuTWF4QWdlU2Vjb25kczogODY0MDAKICAgIGF1dGhvcml6ZVRva2VuTWF4QWdlU2Vjb25kczogNTAwCnBhdXNlQ29udHJvbGxlcnM6IGZhbHNlCnBvbGljeUNvbmZpZzoKICBib290c3RyYXBQb2xpY3lGaWxlOiAvZXRjL29yaWdpbi9tYXN0ZXIvcG9saWN5Lmpzb24KICBvcGVuc2hpZnRJbmZyYXN0cnVjdHVyZU5hbWVzcGFjZTogb3BlbnNoaWZ0LWluZnJhCiAgb3BlbnNoaWZ0U2hhcmVkUmVzb3VyY2VzTmFtZXNwYWNlOiBvcGVuc2hpZnQKcHJvamVjdENvbmZpZzoKICBkZWZhdWx0Tm9kZVNlbGVjdG9yOiBub2RlLXJvbGUua3ViZXJuZXRlcy5pby9jb21wdXRlPXRydWUKICBwcm9qZWN0UmVxdWVzdE1lc3NhZ2U6ICcnCiAgcHJvamVjdFJlcXVlc3RUZW1wbGF0ZTogJycKICBzZWN1cml0eUFsbG9jYXRvcjoKICAgIG1jc0FsbG9jYXRvclJhbmdlOiBzMDovMgogICAgbWNzTGFiZWxzUGVyUHJvamVjdDogNQogICAgdWlkQWxsb2NhdG9yUmFuZ2U6IDEwMDAwMDAwMDAtMTk5OTk5OTk5OS8xMDAwMApyb3V0aW5nQ29uZmlnOgogIHN1YmRvbWFpbjogYXBwcy5mYWxlaC5sb2NhbApzZXJ2aWNlQWNjb3VudENvbmZpZzoKICBsaW1pdFNlY3JldFJlZmVyZW5jZXM6IGZhbHNlCiAgbWFuYWdlZE5hbWVzOgogIC0gZGVmYXVsdAogIC0gYnVpbGRlcgogIC0gZGVwbG95ZXIKICBtYXN0ZXJDQTogY2EtYnVuZGxlLmNydAogIHByaXZhdGVLZXlGaWxlOiBzZXJ2aWNlYWNjb3VudHMucHJpdmF0ZS5rZXkKICBwdWJsaWNLZXlGaWxlczoKICAtIHNlcnZpY2VhY2NvdW50cy5wdWJsaWMua2V5CnNlcnZpbmdJbmZvOgogIGJpbmRBZGRyZXNzOiAwLjAuMC4wOjg0NDMKICBiaW5kTmV0d29yazogdGNwNAogIGNlcnRGaWxlOiBtYXN0ZXIuc2VydmVyLmNydAogIGNsaWVudENBOiBjYS5jcnQKICBrZXlGaWxlOiBtYXN0ZXIuc2VydmVyLmtleQogIG1heFJlcXVlc3RzSW5GbGlnaHQ6IDUwMAogIHJlcXVlc3RUaW1lb3V0U2Vjb25kczogMzYwMAp2b2x1bWVDb25maWc6CiAgZHluYW1pY1Byb3Zpc2lvbmluZ0VuYWJsZWQ6IHRydWUK", "encoding": "base64", "source": "/etc/origin/master/master-config.yaml"}
+
+TASK [openshift_control_plane : set_fact] ************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_control_plane/tasks/check_existing_config.yml:17
+ok: [46.101.141.5] => {"ansible_facts": {"l_existing_config_master_config": {"admissionConfig": {"pluginConfig": {"BuildDefaults": {"configuration": {"apiVersion": "v1", "env": [], "kind": "BuildDefaultsConfig", "resources": {"limits": {}, "requests": {}}}}, "BuildOverrides": {"configuration": {"apiVersion": "v1", "kind": "BuildOverridesConfig"}}, "openshift.io/ImagePolicy": {"configuration": {"apiVersion": "v1", "executionRules": [{"matchImageAnnotations": [{"key": "images.openshift.io/deny-execution", "value": "true"}], "name": "execution-denied", "onResources": [{"resource": "pods"}, {"resource": "builds"}], "reject": true, "skipOnResolutionFailure": true}], "kind": "ImagePolicyConfig"}}}}, "aggregatorConfig": {"proxyClientInfo": {"certFile": "aggregator-front-proxy.crt", "keyFile": "aggregator-front-proxy.key"}}, "apiLevels": ["v1"], "apiVersion": "v1", "authConfig": {"requestHeader": {"clientCA": "front-proxy-ca.crt", "clientCommonNames": ["aggregator-front-proxy"], "extraHeaderPrefixes": ["X-Remote-Extra-"], "groupHeaders": ["X-Remote-Group"], "usernameHeaders": ["X-Remote-User"]}}, "controllerConfig": {"election": {"lockName": "openshift-master-controllers"}, "serviceServingCert": {"signer": {"certFile": "service-signer.crt", "keyFile": "service-signer.key"}}}, "controllers": "*", "corsAllowedOrigins": ["(?i)//127\\.0\\.0\\.1(:|\\z)", "(?i)//localhost(:|\\z)", "(?i)//46\\.101\\.141\\.5(:|\\z)", "(?i)//kubernetes\\.default(:|\\z)", "(?i)//kubernetes\\.default\\.svc\\.cluster\\.local(:|\\z)", "(?i)//kubernetes(:|\\z)", "(?i)//openshift\\.default(:|\\z)", "(?i)//console\\.faleh\\.local(:|\\z)", "(?i)//openshift\\.default\\.svc(:|\\z)", "(?i)//172\\.30\\.0\\.1(:|\\z)", "(?i)//openshift\\.default\\.svc\\.cluster\\.local(:|\\z)", "(?i)//kubernetes\\.default\\.svc(:|\\z)", "(?i)//openshift(:|\\z)", "(?i)//master\\.faleh\\.local(:|\\z)"], "dnsConfig": {"bindAddress": "0.0.0.0:8053", "bindNetwork": "tcp4"}, "etcdClientInfo": {"ca": "master.etcd-ca.crt", "certFile": "master.etcd-client.crt", "keyFile": "master.etcd-client.key", "urls": ["https://master.faleh.local:2379"]}, "etcdStorageConfig": {"kubernetesStoragePrefix": "kubernetes.io", "kubernetesStorageVersion": "v1", "openShiftStoragePrefix": "openshift.io", "openShiftStorageVersion": "v1"}, "imageConfig": {"format": "docker.io/openshift/origin-${component}:${version}", "latest": false}, "imagePolicyConfig": {"internalRegistryHostname": "docker-registry.default.svc:5000"}, "kind": "MasterConfig", "kubeletClientInfo": {"ca": "ca-bundle.crt", "certFile": "master.kubelet-client.crt", "keyFile": "master.kubelet-client.key", "port": 10250}, "kubernetesMasterConfig": {"apiServerArguments": {"storage-backend": ["etcd3"], "storage-media-type": ["application/vnd.kubernetes.protobuf"]}, "controllerArguments": {"cluster-signing-cert-file": ["/etc/origin/master/ca.crt"], "cluster-signing-key-file": ["/etc/origin/master/ca.key"], "pv-recycler-pod-template-filepath-hostpath": ["/etc/origin/master/recycler_pod.yaml"], "pv-recycler-pod-template-filepath-nfs": ["/etc/origin/master/recycler_pod.yaml"]}, "masterCount": 1, "masterIP": "46.101.141.5", "podEvictionTimeout": null, "proxyClientInfo": {"certFile": "master.proxy-client.crt", "keyFile": "master.proxy-client.key"}, "schedulerArguments": null, "schedulerConfigFile": "/etc/origin/master/scheduler.json", "servicesNodePortRange": "", "servicesSubnet": "172.30.0.0/16", "staticNodeNames": []}, "masterClients": {"externalKubernetesClientConnectionOverrides": {"acceptContentTypes": "application/vnd.kubernetes.protobuf,application/json", "burst": 400, "contentType": "application/vnd.kubernetes.protobuf", "qps": 200}, "externalKubernetesKubeConfig": "", "openshiftLoopbackClientConnectionOverrides": {"acceptContentTypes": "application/vnd.kubernetes.protobuf,application/json", "burst": 600, "contentType": "application/vnd.kubernetes.protobuf", "qps": 300}, "openshiftLoopbackKubeConfig": "openshift-master.kubeconfig"}, "masterPublicURL": "https://console.faleh.local:8443", "networkConfig": {"clusterNetworks": [{"cidr": "10.128.0.0/14", "hostSubnetLength": 9}], "externalIPNetworkCIDRs": ["0.0.0.0/0"], "networkPluginName": "redhat/openshift-ovs-multitenant", "serviceNetworkCIDR": "172.30.0.0/16"}, "oauthConfig": {"assetPublicURL": "https://console.faleh.local:8443/console/", "grantConfig": {"method": "auto"}, "identityProviders": [{"challenge": true, "login": true, "mappingMethod": "claim", "name": "htpasswd_auth", "provider": {"apiVersion": "v1", "file": "/etc/origin/master/htpasswd", "kind": "HTPasswdPasswordIdentityProvider"}}], "masterCA": "ca-bundle.crt", "masterPublicURL": "https://console.faleh.local:8443", "masterURL": "https://master.faleh.local:8443", "sessionConfig": {"sessionMaxAgeSeconds": 3600, "sessionName": "ssn", "sessionSecretsFile": "/etc/origin/master/session-secrets.yaml"}, "tokenConfig": {"accessTokenMaxAgeSeconds": 86400, "authorizeTokenMaxAgeSeconds": 500}}, "pauseControllers": false, "policyConfig": {"bootstrapPolicyFile": "/etc/origin/master/policy.json", "openshiftInfrastructureNamespace": "openshift-infra", "openshiftSharedResourcesNamespace": "openshift"}, "projectConfig": {"defaultNodeSelector": "node-role.kubernetes.io/compute=true", "projectRequestMessage": "", "projectRequestTemplate": "", "securityAllocator": {"mcsAllocatorRange": "s0:/2", "mcsLabelsPerProject": 5, "uidAllocatorRange": "1000000000-1999999999/10000"}}, "routingConfig": {"subdomain": "apps.faleh.local"}, "serviceAccountConfig": {"limitSecretReferences": false, "managedNames": ["default", "builder", "deployer"], "masterCA": "ca-bundle.crt", "privateKeyFile": "serviceaccounts.private.key", "publicKeyFiles": ["serviceaccounts.public.key"]}, "servingInfo": {"bindAddress": "0.0.0.0:8443", "bindNetwork": "tcp4", "certFile": "master.server.crt", "clientCA": "ca.crt", "keyFile": "master.server.key", "maxRequestsInFlight": 500, "requestTimeoutSeconds": 3600}, "volumeConfig": {"dynamicProvisioningEnabled": true}}}, "changed": false}
+
+TASK [openshift_control_plane : Check for file paths outside of /etc/origin/master in master's config] ***********************
+task path: /root/openshift-ansible/roles/openshift_control_plane/tasks/check_existing_config.yml:23
+ok: [46.101.141.5] => {"changed": false, "msg": "Aight, configs looking good"}
+
+TASK [openshift_control_plane : set_fact] ************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_control_plane/tasks/check_existing_config.yml:28
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_master_existing_idproviders": [{"challenge": true, "login": true, "mappingMethod": "claim", "name": "htpasswd_auth", "provider": {"apiVersion": "v1", "file": "/etc/origin/master/htpasswd", "kind": "HTPasswdPasswordIdentityProvider"}}]}, "changed": false}
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:76
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_portal_net": "172.30.0.0/16"}, "changed": false}
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:79
+ok: [46.101.141.5] => {"ansible_facts": {"osm_cluster_network_cidr": "10.128.0.0/14", "osm_host_subnet_length": "9"}, "changed": false}
+META: ran handlers
+META: ran handlers
+
+PLAY [Initialize special first-master variables] *****************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:86
+ok: [46.101.141.5]
+META: ran handlers
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:93
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_master_config_node_selector": "node-role.kubernetes.io/compute=true"}, "changed": false}
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:102
+ok: [46.101.141.5] => {"ansible_facts": {"first_master_client_binary": "oc", "l_osm_default_node_selector": "node-role.kubernetes.io/compute=true", "openshift_client_binary": "oc"}, "changed": false}
+META: ran handlers
+META: ran handlers
+
+PLAY [Disable web console if required] ***************************************************************************************
+META: ran handlers
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/basic_facts.yml:115
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+META: ran handlers
+META: ran handlers
+
+PLAY [Setup yum repositories for all hosts] **********************************************************************************
+skipping: no hosts matched
+
+PLAY [Install packages necessary for installer] ******************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/base_packages.yml:5
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+META: ran handlers
+
+TASK [Determine if chrony is installed] **************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/base_packages.yml:9
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Install ntp package] ***************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/base_packages.yml:16
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Start and enable ntpd/chronyd] *****************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/base_packages.yml:26
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Ensure minimum kernel version] *****************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/base_packages.yml:30
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Ensure openshift-ansible installer package deps are installed] *********************************************************
+task path: /root/openshift-ansible/playbooks/init/base_packages.yml:51
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+META: ran handlers
+META: ran handlers
+
+PLAY [Initialize cluster facts] **********************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:2
+ok: [161.35.205.185]
+ok: [46.101.141.5]
+ok: [134.122.114.27]
+ok: [198.199.80.136]
+META: ran handlers
+
+TASK [get openshift_current_version] *****************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:10
+ok: [161.35.205.185] => {"ansible_facts": {"openshift_current_version": "3.11"}, "changed": false}
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_current_version": "3.11.0"}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"openshift_current_version": "3.11.0"}, "changed": false}
+ok: [198.199.80.136] => {"ansible_facts": {"openshift_current_version": "3.11.0"}, "changed": false}
+
+TASK [set_fact openshift_portal_net if present on masters] *******************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:19
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_portal_net": "172.30.0.0/16"}, "changed": false}
+ok: [161.35.205.185] => {"ansible_facts": {"openshift_portal_net": "172.30.0.0/16"}, "changed": false}
+ok: [198.199.80.136] => {"ansible_facts": {"openshift_portal_net": "172.30.0.0/16"}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"openshift_portal_net": "172.30.0.0/16"}, "changed": false}
+
+TASK [Gather Cluster facts] **************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:27
+ok: [161.35.205.185] => {"ansible_facts": {"openshift": {"common": {"all_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "worker.faleh.local", "openshift.default", "console.faleh.local", "openshift.default.svc", "161.35.205.185", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift"], "config_base": "/etc/origin", "dns_domain": "cluster.local", "generate_no_proxy_hosts": true, "hostname": "worker.faleh.local", "internal_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "worker.faleh.local", "openshift.default", "openshift.default.svc", "161.35.205.185", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift"], "ip": "161.35.205.185", "kube_svc_ip": "172.30.0.1", "portal_net": "172.30.0.0/16", "public_hostname": "console.faleh.local", "public_ip": "161.35.205.185", "raw_hostname": "worker.faleh.local"}, "current_config": {"roles": ["node", "master"]}, "master": {"api_port": "8443", "api_url": "https://worker.faleh.local:8443", "api_use_ssl": true, "bind_addr": "0.0.0.0", "console_path": "/console", "console_port": "8443", "console_url": "https://worker.faleh.local:8443/console", "console_use_ssl": true, "controllers_port": "8444", "loopback_api_url": "https://worker.faleh.local:8443", "loopback_cluster_name": "worker-faleh-local:8443", "loopback_context_name": "default/worker-faleh-local:8443/system:openshift-master", "loopback_user": "system:openshift-master/worker-faleh-local:8443", "portal_net": "172.30.0.0/16", "public_api_url": "https://console.faleh.local:8443", "public_console_url": "https://console.faleh.local:8443/console", "session_max_seconds": 3600, "session_name": "ssn"}, "node": {"nodename": "worker.faleh.local", "sdn_mtu": "1450"}}}, "changed": false}
+ok: [46.101.141.5] => {"ansible_facts": {"openshift": {"builddefaults": {"config": {"BuildDefaults": {"configuration": {"apiVersion": "v1", "env": [], "kind": "BuildDefaultsConfig", "resources": {"limits": {}, "requests": {}}}}}}, "buildoverrides": {"config": {"BuildOverrides": {"configuration": {"apiVersion": "v1", "kind": "BuildOverridesConfig"}}}}, "common": {"all_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "openshift.default", "console.faleh.local", "46.101.141.5", "openshift.default.svc", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift", "master.faleh.local"], "config_base": "/etc/origin", "dns_domain": "cluster.local", "generate_no_proxy_hosts": true, "hostname": "master.faleh.local", "internal_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "openshift.default", "46.101.141.5", "openshift.default.svc", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift", "master.faleh.local"], "ip": "46.101.141.5", "kube_svc_ip": "172.30.0.1", "no_proxy_etcd_host_ips": "46.101.141.5", "portal_net": "172.30.0.0/16", "public_hostname": "console.faleh.local", "public_ip": "46.101.141.5", "raw_hostname": "master.faleh.local"}, "current_config": {"roles": ["node", "builddefaults", "master", "buildoverrides"]}, "master": {"admission_plugin_config": {"BuildDefaults": {"configuration": {"apiVersion": "v1", "env": [], "kind": "BuildDefaultsConfig", "resources": {"limits": {}, "requests": {}}}}, "BuildOverrides": {"configuration": {"apiVersion": "v1", "kind": "BuildOverridesConfig"}}, "openshift.io/ImagePolicy": {"configuration": {"apiVersion": "v1", "executionRules": [{"matchImageAnnotations": [{"key": "images.openshift.io/deny-execution", "value": "true"}], "name": "execution-denied", "onResources": [{"resource": "pods"}, {"resource": "builds"}], "reject": true, "skipOnResolutionFailure": true}], "kind": "ImagePolicyConfig"}}}, "api_port": 8443, "api_url": "https://master.faleh.local:8443", "api_use_ssl": true, "bind_addr": "0.0.0.0", "console_path": "/console", "console_port": "8443", "console_url": "https://master.faleh.local:8443/console", "console_use_ssl": true, "controllers_port": "8444", "loopback_api_url": "https://master.faleh.local:8443", "loopback_cluster_name": "master-faleh-local:8443", "loopback_context_name": "default/master-faleh-local:8443/system:openshift-master", "loopback_user": "system:openshift-master/master-faleh-local:8443", "named_certificates": [], "portal_net": "172.30.0.0/16", "public_api_url": "https://console.faleh.local:8443", "public_console_url": "https://console.faleh.local:8443/console", "session_max_seconds": 3600, "session_name": "ssn"}, "node": {"nodename": "master.faleh.local", "sdn_mtu": "1450"}}}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"openshift": {"common": {"all_hostnames": ["openshift.default.svc", "kubernetes.default", "kubernetes", "extworker2.faleh.local", "openshift.default", "console.faleh.local", "134.122.114.27", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "kubernetes.default.svc.cluster.local", "openshift"], "config_base": "/etc/origin", "dns_domain": "cluster.local", "generate_no_proxy_hosts": true, "hostname": "extworker2.faleh.local", "internal_hostnames": ["openshift.default.svc", "kubernetes.default", "kubernetes", "extworker2.faleh.local", "openshift.default", "134.122.114.27", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "kubernetes.default.svc.cluster.local", "openshift"], "ip": "134.122.114.27", "kube_svc_ip": "172.30.0.1", "portal_net": "172.30.0.0/16", "public_hostname": "console.faleh.local", "public_ip": "134.122.114.27", "raw_hostname": "extworker2.faleh.local"}, "current_config": {"roles": ["node", "master"]}, "master": {"api_port": "8443", "api_url": "https://extworker2.faleh.local:8443", "api_use_ssl": true, "bind_addr": "0.0.0.0", "console_path": "/console", "console_port": "8443", "console_url": "https://extworker2.faleh.local:8443/console", "console_use_ssl": true, "controllers_port": "8444", "loopback_api_url": "https://extworker2.faleh.local:8443", "loopback_cluster_name": "extworker2-faleh-local:8443", "loopback_context_name": "default/extworker2-faleh-local:8443/system:openshift-master", "loopback_user": "system:openshift-master/extworker2-faleh-local:8443", "portal_net": "172.30.0.0/16", "public_api_url": "https://console.faleh.local:8443", "public_console_url": "https://console.faleh.local:8443/console", "session_max_seconds": 3600, "session_name": "ssn"}, "node": {"nodename": "extworker2.faleh.local", "sdn_mtu": "1450"}}}, "changed": false}
+ok: [198.199.80.136] => {"ansible_facts": {"openshift": {"common": {"all_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "openshift.default", "extworker1.faleh.local", "console.faleh.local", "openshift.default.svc", "172.30.0.1", "openshift.default.svc.cluster.local", "198.199.80.136", "kubernetes.default.svc", "openshift"], "config_base": "/etc/origin", "dns_domain": "cluster.local", "generate_no_proxy_hosts": true, "hostname": "extworker1.faleh.local", "internal_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "openshift.default", "extworker1.faleh.local", "openshift.default.svc", "172.30.0.1", "198.199.80.136", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift"], "ip": "198.199.80.136", "kube_svc_ip": "172.30.0.1", "portal_net": "172.30.0.0/16", "public_hostname": "console.faleh.local", "public_ip": "198.199.80.136", "raw_hostname": "extworker1.faleh.local"}, "current_config": {"roles": ["node", "master"]}, "master": {"api_port": "8443", "api_url": "https://extworker1.faleh.local:8443", "api_use_ssl": true, "bind_addr": "0.0.0.0", "console_path": "/console", "console_port": "8443", "console_url": "https://extworker1.faleh.local:8443/console", "console_use_ssl": true, "controllers_port": "8444", "loopback_api_url": "https://extworker1.faleh.local:8443", "loopback_cluster_name": "extworker1-faleh-local:8443", "loopback_context_name": "default/extworker1-faleh-local:8443/system:openshift-master", "loopback_user": "system:openshift-master/extworker1-faleh-local:8443", "portal_net": "172.30.0.0/16", "public_api_url": "https://console.faleh.local:8443", "public_console_url": "https://console.faleh.local:8443/console", "session_max_seconds": 3600, "session_name": "ssn"}, "node": {"nodename": "extworker1.faleh.local", "sdn_mtu": "1450"}}}, "changed": false}
+
+TASK [Set fact of no_proxy_internal_hostnames] *******************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:42
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [161.35.205.185] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Initialize openshift.node.sdn_mtu] *************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:61
+ok: [46.101.141.5] => {"ansible_facts": {"openshift": {"builddefaults": {"config": {"BuildDefaults": {"configuration": {"apiVersion": "v1", "env": [], "kind": "BuildDefaultsConfig", "resources": {"limits": {}, "requests": {}}}}}}, "buildoverrides": {"config": {"BuildOverrides": {"configuration": {"apiVersion": "v1", "kind": "BuildOverridesConfig"}}}}, "common": {"all_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "openshift.default", "console.faleh.local", "46.101.141.5", "openshift.default.svc", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift", "master.faleh.local"], "config_base": "/etc/origin", "dns_domain": "cluster.local", "generate_no_proxy_hosts": true, "hostname": "master.faleh.local", "internal_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "openshift.default", "46.101.141.5", "openshift.default.svc", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift", "master.faleh.local"], "ip": "46.101.141.5", "kube_svc_ip": "172.30.0.1", "no_proxy_etcd_host_ips": "46.101.141.5", "portal_net": "172.30.0.0/16", "public_hostname": "console.faleh.local", "public_ip": "46.101.141.5", "raw_hostname": "master.faleh.local"}, "current_config": {"roles": ["node", "builddefaults", "master", "buildoverrides"]}, "master": {"admission_plugin_config": {"BuildDefaults": {"configuration": {"apiVersion": "v1", "env": [], "kind": "BuildDefaultsConfig", "resources": {"limits": {}, "requests": {}}}}, "BuildOverrides": {"configuration": {"apiVersion": "v1", "kind": "BuildOverridesConfig"}}, "openshift.io/ImagePolicy": {"configuration": {"apiVersion": "v1", "executionRules": [{"matchImageAnnotations": [{"key": "images.openshift.io/deny-execution", "value": "true"}], "name": "execution-denied", "onResources": [{"resource": "pods"}, {"resource": "builds"}], "reject": true, "skipOnResolutionFailure": true}], "kind": "ImagePolicyConfig"}}}, "api_port": 8443, "api_url": "https://master.faleh.local:8443", "api_use_ssl": true, "bind_addr": "0.0.0.0", "console_path": "/console", "console_port": "8443", "console_url": "https://master.faleh.local:8443/console", "console_use_ssl": true, "controllers_port": "8444", "loopback_api_url": "https://master.faleh.local:8443", "loopback_cluster_name": "master-faleh-local:8443", "loopback_context_name": "default/master-faleh-local:8443/system:openshift-master", "loopback_user": "system:openshift-master/master-faleh-local:8443", "named_certificates": [], "portal_net": "172.30.0.0/16", "public_api_url": "https://console.faleh.local:8443", "public_console_url": "https://console.faleh.local:8443/console", "session_max_seconds": 3600, "session_name": "ssn"}, "node": {"nodename": "master.faleh.local", "sdn_mtu": "1450"}}}, "changed": false}
+ok: [161.35.205.185] => {"ansible_facts": {"openshift": {"common": {"all_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "worker.faleh.local", "openshift.default", "console.faleh.local", "openshift.default.svc", "161.35.205.185", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift"], "config_base": "/etc/origin", "dns_domain": "cluster.local", "generate_no_proxy_hosts": true, "hostname": "worker.faleh.local", "internal_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "worker.faleh.local", "openshift.default", "openshift.default.svc", "161.35.205.185", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift"], "ip": "161.35.205.185", "kube_svc_ip": "172.30.0.1", "portal_net": "172.30.0.0/16", "public_hostname": "console.faleh.local", "public_ip": "161.35.205.185", "raw_hostname": "worker.faleh.local"}, "current_config": {"roles": ["node", "master"]}, "master": {"api_port": "8443", "api_url": "https://worker.faleh.local:8443", "api_use_ssl": true, "bind_addr": "0.0.0.0", "console_path": "/console", "console_port": "8443", "console_url": "https://worker.faleh.local:8443/console", "console_use_ssl": true, "controllers_port": "8444", "loopback_api_url": "https://worker.faleh.local:8443", "loopback_cluster_name": "worker-faleh-local:8443", "loopback_context_name": "default/worker-faleh-local:8443/system:openshift-master", "loopback_user": "system:openshift-master/worker-faleh-local:8443", "portal_net": "172.30.0.0/16", "public_api_url": "https://console.faleh.local:8443", "public_console_url": "https://console.faleh.local:8443/console", "session_max_seconds": 3600, "session_name": "ssn"}, "node": {"nodename": "worker.faleh.local", "sdn_mtu": "1450"}}}, "changed": false}
+ok: [198.199.80.136] => {"ansible_facts": {"openshift": {"common": {"all_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "openshift.default", "extworker1.faleh.local", "console.faleh.local", "openshift.default.svc", "172.30.0.1", "openshift.default.svc.cluster.local", "198.199.80.136", "kubernetes.default.svc", "openshift"], "config_base": "/etc/origin", "dns_domain": "cluster.local", "generate_no_proxy_hosts": true, "hostname": "extworker1.faleh.local", "internal_hostnames": ["kubernetes.default", "kubernetes.default.svc.cluster.local", "kubernetes", "openshift.default", "extworker1.faleh.local", "openshift.default.svc", "172.30.0.1", "198.199.80.136", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "openshift"], "ip": "198.199.80.136", "kube_svc_ip": "172.30.0.1", "portal_net": "172.30.0.0/16", "public_hostname": "console.faleh.local", "public_ip": "198.199.80.136", "raw_hostname": "extworker1.faleh.local"}, "current_config": {"roles": ["node", "master"]}, "master": {"api_port": "8443", "api_url": "https://extworker1.faleh.local:8443", "api_use_ssl": true, "bind_addr": "0.0.0.0", "console_path": "/console", "console_port": "8443", "console_url": "https://extworker1.faleh.local:8443/console", "console_use_ssl": true, "controllers_port": "8444", "loopback_api_url": "https://extworker1.faleh.local:8443", "loopback_cluster_name": "extworker1-faleh-local:8443", "loopback_context_name": "default/extworker1-faleh-local:8443/system:openshift-master", "loopback_user": "system:openshift-master/extworker1-faleh-local:8443", "portal_net": "172.30.0.0/16", "public_api_url": "https://console.faleh.local:8443", "public_console_url": "https://console.faleh.local:8443/console", "session_max_seconds": 3600, "session_name": "ssn"}, "node": {"nodename": "extworker1.faleh.local", "sdn_mtu": "1450"}}}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"openshift": {"common": {"all_hostnames": ["openshift.default.svc", "kubernetes.default", "kubernetes", "extworker2.faleh.local", "openshift.default", "console.faleh.local", "134.122.114.27", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "kubernetes.default.svc.cluster.local", "openshift"], "config_base": "/etc/origin", "dns_domain": "cluster.local", "generate_no_proxy_hosts": true, "hostname": "extworker2.faleh.local", "internal_hostnames": ["openshift.default.svc", "kubernetes.default", "kubernetes", "extworker2.faleh.local", "openshift.default", "134.122.114.27", "172.30.0.1", "openshift.default.svc.cluster.local", "kubernetes.default.svc", "kubernetes.default.svc.cluster.local", "openshift"], "ip": "134.122.114.27", "kube_svc_ip": "172.30.0.1", "portal_net": "172.30.0.0/16", "public_hostname": "console.faleh.local", "public_ip": "134.122.114.27", "raw_hostname": "extworker2.faleh.local"}, "current_config": {"roles": ["node", "master"]}, "master": {"api_port": "8443", "api_url": "https://extworker2.faleh.local:8443", "api_use_ssl": true, "bind_addr": "0.0.0.0", "console_path": "/console", "console_port": "8443", "console_url": "https://extworker2.faleh.local:8443/console", "console_use_ssl": true, "controllers_port": "8444", "loopback_api_url": "https://extworker2.faleh.local:8443", "loopback_cluster_name": "extworker2-faleh-local:8443", "loopback_context_name": "default/extworker2-faleh-local:8443/system:openshift-master", "loopback_user": "system:openshift-master/extworker2-faleh-local:8443", "portal_net": "172.30.0.0/16", "public_api_url": "https://console.faleh.local:8443", "public_console_url": "https://console.faleh.local:8443/console", "session_max_seconds": 3600, "session_name": "ssn"}, "node": {"nodename": "extworker2.faleh.local", "sdn_mtu": "1450"}}}, "changed": false}
+
+TASK [set_fact l_kubelet_node_name] ******************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:67
+ok: [46.101.141.5] => {"ansible_facts": {"l_kubelet_node_name": "master.faleh.local"}, "changed": false}
+ok: [161.35.205.185] => {"ansible_facts": {"l_kubelet_node_name": "worker.faleh.local"}, "changed": false}
+ok: [198.199.80.136] => {"ansible_facts": {"l_kubelet_node_name": "extworker1.faleh.local"}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"l_kubelet_node_name": "extworker2.faleh.local"}, "changed": false}
+META: ran handlers
+META: ran handlers
+
+PLAY [Initialize etcd host variables] ****************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:71
+ok: [46.101.141.5]
+META: ran handlers
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:80
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_master_etcd_hosts_group": ["46.101.141.5"]}, "changed": false}
+
+TASK [Set the local etcd instance as primary entry to lower the etcd access latency] *****************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:83
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_master_etcd_hosts_group": ["46.101.141.5"]}, "changed": false}
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:88
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_master_etcd_hosts": ["master.faleh.local"], "openshift_master_etcd_port": "2379", "openshift_no_proxy_etcd_host_ips": "46.101.141.5"}, "changed": false}
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/cluster_facts.yml:98
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_master_etcd_urls": ["https://master.faleh.local:2379"]}, "changed": false}
+META: ran handlers
+META: ran handlers
+
+PLAY [Determine openshift_version to configure on first master] **************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/version.yml:2
+ok: [46.101.141.5]
+META: ran handlers
+
+TASK [include_role : openshift_version] **************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/version.yml:5
+
+TASK [openshift_version : Use openshift_current_version fact as version to configure if already installed] *******************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:6
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_version": "3.11.0"}, "changed": false}
+
+TASK [Set openshift_version to openshift_release if undefined] ***************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:14
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_version : debug] *********************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:21
+ok: [46.101.141.5] => {
+    "msg": "openshift_pkg_version was not defined. Falling back to -3.11.0"
+}
+
+TASK [openshift_version : set_fact] ******************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:23
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_pkg_version": "-3.11.0*"}, "changed": false}
+
+TASK [openshift_version : debug] *********************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:30
+ok: [46.101.141.5] => {
+    "msg": "openshift_image_tag was not defined. Falling back to v3.11.0"
+}
+
+TASK [openshift_version : set_fact] ******************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:32
+ok: [46.101.141.5] => {"ansible_facts": {"openshift_image_tag": "v3.11.0"}, "changed": false}
+
+TASK [openshift_version : assert openshift_release in openshift_image_tag] ***************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:36
+ok: [46.101.141.5] => {
+    "changed": false, 
+    "msg": "All assertions passed"
+}
+
+TASK [openshift_version : assert openshift_release in openshift_pkg_version] *************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:43
+ok: [46.101.141.5] => {
+    "changed": false, 
+    "msg": "All assertions passed"
+}
+
+TASK [openshift_version : debug] *********************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:51
+ok: [46.101.141.5] => {
+    "openshift_release": "3.11"
+}
+
+TASK [openshift_version : debug] *********************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:53
+ok: [46.101.141.5] => {
+    "openshift_image_tag": "v3.11.0"
+}
+
+TASK [openshift_version : debug] *********************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:55
+ok: [46.101.141.5] => {
+    "openshift_pkg_version": "-3.11.0*"
+}
+
+TASK [openshift_version : debug] *********************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_version/tasks/first_master.yml:57
+ok: [46.101.141.5] => {
+    "openshift_version": "3.11.0"
+}
+META: ran handlers
+META: ran handlers
+
+PLAY [Set openshift_version for etcd, node, and master hosts] ****************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/version.yml:12
+ok: [134.122.114.27]
+ok: [198.199.80.136]
+META: ran handlers
+
+TASK [set_fact] **************************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/version.yml:20
+ok: [198.199.80.136] => {"ansible_facts": {"openshift_image_tag": "v3.11.0", "openshift_pkg_version": "-3.11.0*", "openshift_version": "3.11.0"}, "changed": false}
+ok: [134.122.114.27] => {"ansible_facts": {"openshift_image_tag": "v3.11.0", "openshift_pkg_version": "-3.11.0*", "openshift_version": "3.11.0"}, "changed": false}
+META: ran handlers
+META: ran handlers
+
+PLAY [Verify Requirements] ***************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/sanity_checks.yml:3
+ok: [46.101.141.5]
+META: ran handlers
+
+TASK [Run variable sanity checks] ********************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/sanity_checks.yml:14
+ok: [46.101.141.5] => {"changed": false, "msg": "Sanity Checks passed"}
+
+TASK [Validate openshift_node_groups and openshift_node_group_name] **********************************************************
+task path: /root/openshift-ansible/playbooks/init/sanity_checks.yml:18
+ok: [46.101.141.5] => {"changed": false, "msg": "Node group checks passed"}
+
+TASK [Validate openshift_master_ca_certificate when defined] *****************************************************************
+task path: /root/openshift-ansible/playbooks/init/sanity_checks.yml:20
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Fetch ca.crt from cluster if exists] ***********************************************************************************
+task path: /root/openshift-ansible/playbooks/init/sanity_checks.yml:34
+ok: [46.101.141.5] => {"changed": false, "content": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM2akNDQWRLZ0F3SUJBZ0lCQVRBTkJna3Foa2lHOXcwQkFRc0ZBREFtTVNRd0lnWURWUVFEREJ0dmNHVnUKYzJocFpuUXRjMmxuYm1WeVFERTFPVFUxTURreU5qUXdIaGNOTWpBd056SXpNVE13TVRBeldoY05NalV3TnpJeQpNVE13TVRBMFdqQW1NU1F3SWdZRFZRUUREQnR2Y0dWdWMyaHBablF0YzJsbmJtVnlRREUxT1RVMU1Ea3lOalF3CmdnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUN2Q25FZ3VndlpJWTh1RkRYWUJDTTMKNXVlSmxYeUdVK1E4VDg1LzVvUkpVWXFmNndsYUI3eldzT0g3VDloWEppbUNhbFFLRk82aTM5cnhRR2VHK3VseQpLQWVpdU45SWNWK0VIVmlkWGpScHduUm9vWkk0VzBvb1paRTVxeGlwTjZPWlVPOXZjd0xOeEJ5djFZelBRMkNPCjYrd0RuRUdCU3hmOUg5SEw2b21naEJTR2xKa25WekEweEhNdVFmZkRBZVd0Qms2akFhY0dCOVpYbVpLOVBoNmsKS0RaUUE1MVBMN2ZlTFkxQXl6S0FQYWFxdzZYYnBVdVdpOVlycjIrU01XcjNZMGY5MlV6d3ZhOFpQM1Byd0V5bwpyT2dJM2dmZ2hDNVJWRk94MnBUMXZZUzAwYUJXazZPbU96M2ZyMnZ6N1l5MjErVkxOT0RVL3Bvb3c2WHV2WG9kCkFnTUJBQUdqSXpBaE1BNEdBMVVkRHdFQi93UUVBd0lDcERBUEJnTlZIUk1CQWY4RUJUQURBUUgvTUEwR0NTcUcKU0liM0RRRUJDd1VBQTRJQkFRQXQ5dHJlYVg1WVI4T0REWDFocVpuTmtaZlRDbTNkT1hlUGdMUEZRWEdjcmdHVApWVHdTNWhzeWJVSHBFTWU1Y0JSelY1R2FVc0RxcW1NWk1YUUtSMHN0NFVkU1lpaG1FbHd5ODY1L2RHZkdPWGJMCi9iRUVHeFpXVDlUUG5IMnJySStvRnZWejkwVnRFVVVUL0hhaWNEVVhFMllzNzNGaGoya1F3SjI4SmxGWnRyRmYKeHA4d3N1UEhnbm13SUxJMlB5KzN1eFA2TWxvcHJCQ2tscWVUOXg5dEJNaTNoMnFVWnVpRE1wR0FhR0NXQWRpUApKUUJJcE1RenZIQlloS3dWWmY0ckx5bzB4L0t6MnVrczJLeTV4WFcrV3laTzhCUUxlemJhSzZKaUJad0NXR0VWCktjSVVQWXJ5b0RJT1dhWUlUdlV5WkVldVQrWmdQZVp5aDV1ekJib2UKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=", "encoding": "base64", "failed_when_result": false, "source": "/etc/origin/master/ca.crt"}
+
+TASK [Validate ca.crt from cluster if exists] ********************************************************************************
+task path: /root/openshift-ansible/playbooks/init/sanity_checks.yml:40
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+META: ran handlers
+META: ran handlers
+
+PLAY [Verify Node Prerequisites] *********************************************************************************************
+skipping: no hosts matched
+
+PLAY [Validate Aci deployment variables] *************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/validate_aci_params.yml:2
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+META: ran handlers
+
+TASK [Verify Aci deployment file variable is defined] ************************************************************************
+task path: /root/openshift-ansible/playbooks/init/validate_aci_params.yml:6
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Verify Aci deployment file exists] *************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/validate_aci_params.yml:14
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [Fail if file does not exist] *******************************************************************************************
+task path: /root/openshift-ansible/playbooks/init/validate_aci_params.yml:19
+skipping: [46.101.141.5] => {"changed": false, "skip_reason": "Conditional result was False"}
+META: ran handlers
+META: ran handlers
+
+PLAY [Initialization Checkpoint End] *****************************************************************************************
+META: ran handlers
+
+TASK [Set install initialization 'Complete'] *********************************************************************************
+task path: /root/openshift-ansible/playbooks/init/main.yml:47
+ok: [46.101.141.5] => {"ansible_stats": {"aggregate": true, "data": {"installer_phase_initialize": {"end": "20201028155548Z", "status": "Complete"}}, "per_host": false}, "changed": false}
+META: ran handlers
+META: ran handlers
+
+PLAY [Node Join Checkpoint Start] ********************************************************************************************
+META: ran handlers
+
+TASK [Set Node Join 'In Progress'] *******************************************************************************************
+task path: /root/openshift-ansible/playbooks/openshift-node/private/join.yml:6
+ok: [46.101.141.5] => {"ansible_stats": {"aggregate": true, "data": {"installer_phase_node_join": {"playbook": "playbooks/openshift-node/join.yml", "start": "20201028155548Z", "status": "In Progress", "title": "Node Join"}}, "per_host": false}, "changed": false}
+META: ran handlers
+META: ran handlers
+
+PLAY [Distribute bootstrap and start nodes] **********************************************************************************
+META: ran handlers
+
+TASK [openshift_node : Copy master bootstrap config locally] *****************************************************************
+task path: /root/openshift-ansible/roles/openshift_node/tasks/distribute_bootstrap.yml:3
+ok: [198.199.80.136 -> 46.101.141.5] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+
+TASK [openshift_node : Distribute bootstrap kubeconfig if one does not exist] ************************************************
+task path: /root/openshift-ansible/roles/openshift_node/tasks/distribute_bootstrap.yml:11
+ok: [134.122.114.27] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+ok: [198.199.80.136] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+
+TASK [openshift_node : Start and enable node for bootstrapping] **************************************************************
+task path: /root/openshift-ansible/roles/openshift_node/tasks/distribute_bootstrap.yml:21
+changed: [134.122.114.27] => {"changed": true, "enabled": true, "name": "origin-node", "state": "started", "status": {"ActiveEnterTimestamp": "Wed 2020-10-28 15:43:27 UTC", "ActiveEnterTimestampMonotonic": "10530122754", "ActiveExitTimestamp": "Wed 2020-10-28 15:43:27 UTC", "ActiveExitTimestampMonotonic": "10529777258", "ActiveState": "active", "After": "dnsmasq.service docker.service ntpd.service chronyd.service system.slice systemd-journald.socket basic.target -.mount", "AllowIsolate": "no", "AmbientCapabilities": "0", "AssertResult": "yes", "AssertTimestamp": "Wed 2020-10-28 15:43:27 UTC", "AssertTimestampMonotonic": "10529782258", "Before": "shutdown.target multi-user.target", "BlockIOAccounting": "no", "BlockIOWeight": "18446744073709551615", "CPUAccounting": "no", "CPUQuotaPerSecUSec": "infinity", "CPUSchedulingPolicy": "0", "CPUSchedulingPriority": "0", "CPUSchedulingResetOnFork": "no", "CPUShares": "18446744073709551615", "CanIsolate": "no", "CanReload": "no", "CanStart": "yes", "CanStop": "yes", "CapabilityBoundingSet": "18446744073709551615", "ConditionResult": "yes", "ConditionTimestamp": "Wed 2020-10-28 15:43:27 UTC", "ConditionTimestampMonotonic": "10529782257", "Conflicts": "shutdown.target", "ControlGroup": "/system.slice/origin-node.service", "ControlPID": "0", "DefaultDependencies": "yes", "Delegate": "no", "Description": "OpenShift Node", "DevicePolicy": "auto", "Documentation": "https://github.com/openshift/origin", "EnvironmentFile": "/etc/sysconfig/origin-node (ignore_errors=no)", "ExecMainCode": "0", "ExecMainExitTimestampMonotonic": "0", "ExecMainPID": "37182", "ExecMainStartTimestamp": "Wed 2020-10-28 15:43:27 UTC", "ExecMainStartTimestampMonotonic": "10529783011", "ExecMainStatus": "0", "ExecStart": "{ path=/usr/local/bin/openshift-node ; argv[]=/usr/local/bin/openshift-node ; ignore_errors=no ; start_time=[Wed 2020-10-28 15:43:27 UTC] ; stop_time=[n/a] ; pid=37182 ; code=(null) ; status=0/0 }", "FailureAction": "none", "FileDescriptorStoreMax": "0", "FragmentPath": "/etc/systemd/system/origin-node.service", "GuessMainPID": "yes", "IOScheduling": "0", "Id": "origin-node.service", "IgnoreOnIsolate": "no", "IgnoreOnSnapshot": "no", "IgnoreSIGPIPE": "yes", "InactiveEnterTimestamp": "Wed 2020-10-28 15:43:27 UTC", "InactiveEnterTimestampMonotonic": "10529781903", "InactiveExitTimestamp": "Wed 2020-10-28 15:43:27 UTC", "InactiveExitTimestampMonotonic": "10529783064", "JobTimeoutAction": "none", "JobTimeoutUSec": "0", "KillMode": "control-group", "KillSignal": "15", "LimitAS": "18446744073709551615", "LimitCORE": "18446744073709551615", "LimitCPU": "18446744073709551615", "LimitDATA": "18446744073709551615", "LimitFSIZE": "18446744073709551615", "LimitLOCKS": "18446744073709551615", "LimitMEMLOCK": "65536", "LimitMSGQUEUE": "819200", "LimitNICE": "0", "LimitNOFILE": "65536", "LimitNPROC": "31096", "LimitRSS": "18446744073709551615", "LimitRTPRIO": "0", "LimitRTTIME": "18446744073709551615", "LimitSIGPENDING": "31096", "LimitSTACK": "18446744073709551615", "LoadState": "loaded", "MainPID": "37182", "MemoryAccounting": "no", "MemoryCurrent": "18446744073709551615", "MemoryLimit": "18446744073709551615", "MountFlags": "0", "Names": "origin-node.service", "NeedDaemonReload": "no", "Nice": "0", "NoNewPrivileges": "no", "NonBlocking": "no", "NotifyAccess": "main", "OOMScoreAdjust": "-999", "OnFailureJobMode": "replace", "PermissionsStartOnly": "no", "PrivateDevices": "no", "PrivateNetwork": "no", "PrivateTmp": "no", "ProtectHome": "no", "ProtectSystem": "no", "RefuseManualStart": "no", "RefuseManualStop": "no", "RemainAfterExit": "no", "Requires": "system.slice basic.target -.mount", "RequiresMountsFor": "/var/lib/origin", "Restart": "always", "RestartUSec": "5s", "Result": "success", "RootDirectoryStartOnly": "no", "RuntimeDirectoryMode": "0755", "SameProcessGroup": "no", "SecureBits": "0", "SendSIGHUP": "no", "SendSIGKILL": "yes", "Slice": "system.slice", "StandardError": "inherit", "StandardInput": "null", "StandardOutput": "journal", "StartLimitAction": "none", "StartLimitBurst": "5", "StartLimitInterval": "10000000", "StartupBlockIOWeight": "18446744073709551615", "StartupCPUShares": "18446744073709551615", "StatusErrno": "0", "StopWhenUnneeded": "no", "SubState": "running", "SyslogIdentifier": "origin-node", "SyslogLevelPrefix": "yes", "SyslogPriority": "30", "SystemCallErrorNumber": "0", "TTYReset": "no", "TTYVHangup": "no", "TTYVTDisallocate": "no", "TasksAccounting": "no", "TasksCurrent": "18446744073709551615", "TasksMax": "18446744073709551615", "TimeoutStartUSec": "5min", "TimeoutStopUSec": "1min 30s", "TimerSlackNSec": "50000", "Transient": "no", "Type": "notify", "UMask": "0022", "UnitFilePreset": "disabled", "UnitFileState": "enabled", "WantedBy": "multi-user.target", "Wants": "docker.service dnsmasq.service", "WatchdogTimestamp": "Wed 2020-10-28 15:43:27 UTC", "WatchdogTimestampMonotonic": "10530122700", "WatchdogUSec": "0", "WorkingDirectory": "/var/lib/origin"}}
+changed: [198.199.80.136] => {"changed": true, "enabled": true, "name": "origin-node", "state": "started", "status": {"ActiveEnterTimestamp": "Wed 2020-10-28 15:43:27 UTC", "ActiveEnterTimestampMonotonic": "10403748677", "ActiveExitTimestamp": "Wed 2020-10-28 15:43:27 UTC", "ActiveExitTimestampMonotonic": "10403343474", "ActiveState": "active", "After": "ntpd.service chronyd.service system.slice dnsmasq.service basic.target docker.service systemd-journald.socket -.mount", "AllowIsolate": "no", "AmbientCapabilities": "0", "AssertResult": "yes", "AssertTimestamp": "Wed 2020-10-28 15:43:27 UTC", "AssertTimestampMonotonic": "10403350976", "Before": "shutdown.target multi-user.target", "BlockIOAccounting": "no", "BlockIOWeight": "18446744073709551615", "CPUAccounting": "no", "CPUQuotaPerSecUSec": "infinity", "CPUSchedulingPolicy": "0", "CPUSchedulingPriority": "0", "CPUSchedulingResetOnFork": "no", "CPUShares": "18446744073709551615", "CanIsolate": "no", "CanReload": "no", "CanStart": "yes", "CanStop": "yes", "CapabilityBoundingSet": "18446744073709551615", "ConditionResult": "yes", "ConditionTimestamp": "Wed 2020-10-28 15:43:27 UTC", "ConditionTimestampMonotonic": "10403350975", "Conflicts": "shutdown.target", "ControlGroup": "/system.slice/origin-node.service", "ControlPID": "0", "DefaultDependencies": "yes", "Delegate": "no", "Description": "OpenShift Node", "DevicePolicy": "auto", "Documentation": "https://github.com/openshift/origin", "EnvironmentFile": "/etc/sysconfig/origin-node (ignore_errors=no)", "ExecMainCode": "0", "ExecMainExitTimestampMonotonic": "0", "ExecMainPID": "37498", "ExecMainStartTimestamp": "Wed 2020-10-28 15:43:27 UTC", "ExecMainStartTimestampMonotonic": "10403351868", "ExecMainStatus": "0", "ExecStart": "{ path=/usr/local/bin/openshift-node ; argv[]=/usr/local/bin/openshift-node ; ignore_errors=no ; start_time=[Wed 2020-10-28 15:43:27 UTC] ; stop_time=[n/a] ; pid=37498 ; code=(null) ; status=0/0 }", "FailureAction": "none", "FileDescriptorStoreMax": "0", "FragmentPath": "/etc/systemd/system/origin-node.service", "GuessMainPID": "yes", "IOScheduling": "0", "Id": "origin-node.service", "IgnoreOnIsolate": "no", "IgnoreOnSnapshot": "no", "IgnoreSIGPIPE": "yes", "InactiveEnterTimestamp": "Wed 2020-10-28 15:43:27 UTC", "InactiveEnterTimestampMonotonic": "10403350556", "InactiveExitTimestamp": "Wed 2020-10-28 15:43:27 UTC", "InactiveExitTimestampMonotonic": "10403351931", "JobTimeoutAction": "none", "JobTimeoutUSec": "0", "KillMode": "control-group", "KillSignal": "15", "LimitAS": "18446744073709551615", "LimitCORE": "18446744073709551615", "LimitCPU": "18446744073709551615", "LimitDATA": "18446744073709551615", "LimitFSIZE": "18446744073709551615", "LimitLOCKS": "18446744073709551615", "LimitMEMLOCK": "65536", "LimitMSGQUEUE": "819200", "LimitNICE": "0", "LimitNOFILE": "65536", "LimitNPROC": "31096", "LimitRSS": "18446744073709551615", "LimitRTPRIO": "0", "LimitRTTIME": "18446744073709551615", "LimitSIGPENDING": "31096", "LimitSTACK": "18446744073709551615", "LoadState": "loaded", "MainPID": "37498", "MemoryAccounting": "no", "MemoryCurrent": "18446744073709551615", "MemoryLimit": "18446744073709551615", "MountFlags": "0", "Names": "origin-node.service", "NeedDaemonReload": "no", "Nice": "0", "NoNewPrivileges": "no", "NonBlocking": "no", "NotifyAccess": "main", "OOMScoreAdjust": "-999", "OnFailureJobMode": "replace", "PermissionsStartOnly": "no", "PrivateDevices": "no", "PrivateNetwork": "no", "PrivateTmp": "no", "ProtectHome": "no", "ProtectSystem": "no", "RefuseManualStart": "no", "RefuseManualStop": "no", "RemainAfterExit": "no", "Requires": "system.slice -.mount basic.target", "RequiresMountsFor": "/var/lib/origin", "Restart": "always", "RestartUSec": "5s", "Result": "success", "RootDirectoryStartOnly": "no", "RuntimeDirectoryMode": "0755", "SameProcessGroup": "no", "SecureBits": "0", "SendSIGHUP": "no", "SendSIGKILL": "yes", "Slice": "system.slice", "StandardError": "inherit", "StandardInput": "null", "StandardOutput": "journal", "StartLimitAction": "none", "StartLimitBurst": "5", "StartLimitInterval": "10000000", "StartupBlockIOWeight": "18446744073709551615", "StartupCPUShares": "18446744073709551615", "StatusErrno": "0", "StopWhenUnneeded": "no", "SubState": "running", "SyslogIdentifier": "origin-node", "SyslogLevelPrefix": "yes", "SyslogPriority": "30", "SystemCallErrorNumber": "0", "TTYReset": "no", "TTYVHangup": "no", "TTYVTDisallocate": "no", "TasksAccounting": "no", "TasksCurrent": "18446744073709551615", "TasksMax": "18446744073709551615", "TimeoutStartUSec": "5min", "TimeoutStopUSec": "1min 30s", "TimerSlackNSec": "50000", "Transient": "no", "Type": "notify", "UMask": "0022", "UnitFilePreset": "disabled", "UnitFileState": "enabled", "WantedBy": "multi-user.target", "Wants": "dnsmasq.service docker.service", "WatchdogTimestamp": "Wed 2020-10-28 15:43:27 UTC", "WatchdogTimestampMonotonic": "10403748606", "WatchdogUSec": "0", "WorkingDirectory": "/var/lib/origin"}}
+
+TASK [openshift_node : Get node logs] ****************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_node/tasks/distribute_bootstrap.yml:31
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_node : debug] ************************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_node/tasks/distribute_bootstrap.yml:35
+skipping: [198.199.80.136] => {}
+skipping: [134.122.114.27] => {}
+
+TASK [openshift_node : fail] *************************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_node/tasks/distribute_bootstrap.yml:37
+skipping: [198.199.80.136] => {"changed": false, "skip_reason": "Conditional result was False"}
+skipping: [134.122.114.27] => {"changed": false, "skip_reason": "Conditional result was False"}
+
+TASK [openshift_node : Update CA trust] **************************************************************************************
+task path: /root/openshift-ansible/roles/openshift_node/tasks/distribute_bootstrap.yml:40
+changed: [134.122.114.27] => {"changed": true, "cmd": ["update-ca-trust", "extract"], "delta": "0:00:00.651666", "end": "2020-10-28 15:55:58.019122", "rc": 0, "start": "2020-10-28 15:55:57.367456", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+changed: [198.199.80.136] => {"changed": true, "cmd": ["update-ca-trust", "extract"], "delta": "0:00:00.922930", "end": "2020-10-28 15:55:58.243558", "rc": 0, "start": "2020-10-28 15:55:57.320628", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+META: ran handlers
+META: ran handlers
+
+PLAY [Approve any pending CSR requests from inventory nodes] *****************************************************************
+META: ran handlers
+
+TASK [Dump all candidate bootstrap hostnames] ********************************************************************************
+task path: /root/openshift-ansible/playbooks/openshift-node/private/join.yml:31
+ok: [46.101.141.5] => {
+    "msg": [
+        "198.199.80.136", 
+        "134.122.114.27"
+    ]
+}
+
+TASK [Find all hostnames for bootstrapping] **********************************************************************************
+task path: /root/openshift-ansible/playbooks/openshift-node/private/join.yml:35
+ok: [46.101.141.5] => {"ansible_facts": {"l_nodes_to_join": ["extworker1.faleh.local", "extworker2.faleh.local"]}, "changed": false}
+
+TASK [Dump the bootstrap hostnames] ******************************************************************************************
+task path: /root/openshift-ansible/playbooks/openshift-node/private/join.yml:39
+ok: [46.101.141.5] => {
+    "msg": [
+        "extworker1.faleh.local", 
+        "extworker2.faleh.local"
+    ]
+}
+
+TASK [Approve node certificates when bootstrapping] **************************************************************************
+task path: /root/openshift-ansible/playbooks/openshift-node/private/join.yml:43
+FAILED - RETRYING: Approve node certificates when bootstrapping (30 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (29 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (28 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (27 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (26 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (25 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (24 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (23 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (22 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (21 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (20 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (19 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (18 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (17 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (16 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (15 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (14 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (13 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (12 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (11 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (10 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (9 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (8 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (7 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (6 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (5 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (4 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (3 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (2 retries left).
+FAILED - RETRYING: Approve node certificates when bootstrapping (1 retries left).
+fatal: [46.101.141.5]: FAILED! => {"all_subjects_found": ["subject=/O=system:nodes/CN=system:node:extworker2.faleh.local\n", "subject=/O=system:nodes/CN=system:node:extworker1.faleh.local\n", "subject=/O=system:nodes/CN=system:node:extworker2.faleh.local\n", "subject=/O=system:nodes/CN=system:node:extworker1.faleh.local\n", "subject=/O=system:nodes/CN=system:node:extworker2.faleh.local\n", "subject=/O=system:nodes/CN=system:node:extworker1.faleh.local\n", "subject=/O=system:nodes/CN=system:node:extworker2.faleh.local\n", "subject=/O=system:nodes/CN=system:node:extworker1.faleh.local\n"], "attempts": 30, "changed": false, "client_approve_results": [], "client_csrs": {}, "msg": "Could not find csr for nodes: extworker1.faleh.local, extworker2.faleh.local", "oc_get_nodes": {"apiVersion": "v1", "items": [{"apiVersion": "v1", "kind": "Node", "metadata": {"annotations": {"node.openshift.io/md5sum": "4f14daf37cc5b42b1fe3aa91b11f3d86", "volumes.kubernetes.io/controller-managed-attach-detach": "true"}, "creationTimestamp": "2020-10-28T14:47:12Z", "labels": {"beta.kubernetes.io/arch": "amd64", "beta.kubernetes.io/os": "linux", "kubernetes.io/hostname": "extworker1.faleh.local", "node-role.kubernetes.io/compute": "true"}, "name": "extworker1.faleh.local", "namespace": "", "resourceVersion": "17129546", "selfLink": "/api/v1/nodes/extworker1.faleh.local", "uid": "76a2bc26-192c-11eb-b453-168917096da6"}, "spec": {}, "status": {"addresses": [{"address": "198.199.80.136", "type": "InternalIP"}, {"address": "extworker1.faleh.local", "type": "Hostname"}], "allocatable": {"cpu": "4", "hugepages-2Mi": "0", "memory": "7906360Ki", "pods": "250"}, "capacity": {"cpu": "4", "hugepages-2Mi": "0", "memory": "8008760Ki", "pods": "250"}, "conditions": [{"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-10-28T14:47:12Z", "message": "kubelet has sufficient disk space available", "reason": "KubeletHasSufficientDisk", "status": "False", "type": "OutOfDisk"}, {"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-10-28T14:47:12Z", "message": "kubelet has sufficient memory available", "reason": "KubeletHasSufficientMemory", "status": "False", "type": "MemoryPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-10-28T14:47:12Z", "message": "kubelet has no disk pressure", "reason": "KubeletHasNoDiskPressure", "status": "False", "type": "DiskPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-10-28T14:47:12Z", "message": "kubelet has sufficient PID available", "reason": "KubeletHasSufficientPID", "status": "False", "type": "PIDPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-10-28T14:47:34Z", "message": "kubelet is posting ready status", "reason": "KubeletReady", "status": "True", "type": "Ready"}], "daemonEndpoints": {"kubeletEndpoint": {"Port": 10250}}, "images": [{"names": ["docker.io/openshift/origin-node@sha256:4240c5346406cb22959e932e6281988c88146c4ed25fe9a275ec0c934d7ca17a", "docker.io/openshift/origin-node:v3.11", "docker.io/openshift/origin-node:v3.11.0"], "sizeBytes": 1174289505}, {"names": ["docker.io/openshift/origin-pod@sha256:6bd70b464bd8042499ed551435947bb97cb07f1778f8fde729d1ea72e3ece318", "docker.io/openshift/origin-pod:v3.11.0"], "sizeBytes": 262150115}, {"names": ["docker.io/openshift/prometheus-node-exporter@sha256:4fc227cd04eba43fdfd5d9a076566bcebad61801b31fd25ee2b3f6a3780e8e1c", "docker.io/openshift/prometheus-node-exporter:v0.16.0"], "sizeBytes": 216339551}, {"names": ["quay.io/coreos/kube-rbac-proxy@sha256:a578315f24e6fd01a65e187e4d1979678598a7d800d039ee5cfe4e11b0b1788d", "quay.io/coreos/kube-rbac-proxy:v0.3.1"], "sizeBytes": 40160345}], "nodeInfo": {"architecture": "amd64", "bootID": "54b22aa3-12e2-4f53-a263-cd26dd63a65a", "containerRuntimeVersion": "docker://1.13.1", "kernelVersion": "3.10.0-1127.19.1.el7.x86_64", "kubeProxyVersion": "v1.11.0+d4cacc0", "kubeletVersion": "v1.11.0+d4cacc0", "machineID": "a5b57b4263cee586e4dc9f565f995b87", "operatingSystem": "linux", "osImage": "CentOS Linux 7 (Core)", "systemUUID": "43C5C781-7F03-4DF0-9EAD-BB57384E3C18"}}}, {"apiVersion": "v1", "kind": "Node", "metadata": {"annotations": {"node.openshift.io/md5sum": "4f14daf37cc5b42b1fe3aa91b11f3d86", "volumes.kubernetes.io/controller-managed-attach-detach": "true"}, "creationTimestamp": "2020-10-28T14:47:12Z", "labels": {"beta.kubernetes.io/arch": "amd64", "beta.kubernetes.io/os": "linux", "kubernetes.io/hostname": "extworker2.faleh.local", "node-role.kubernetes.io/compute": "true"}, "name": "extworker2.faleh.local", "namespace": "", "resourceVersion": "17129544", "selfLink": "/api/v1/nodes/extworker2.faleh.local", "uid": "76cdadd5-192c-11eb-b453-168917096da6"}, "spec": {}, "status": {"addresses": [{"address": "134.122.114.27", "type": "InternalIP"}, {"address": "extworker2.faleh.local", "type": "Hostname"}], "allocatable": {"cpu": "4", "hugepages-1Gi": "0", "hugepages-2Mi": "0", "memory": "7906364Ki", "pods": "250"}, "capacity": {"cpu": "4", "hugepages-1Gi": "0", "hugepages-2Mi": "0", "memory": "8008764Ki", "pods": "250"}, "conditions": [{"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-10-28T14:47:12Z", "message": "kubelet has sufficient disk space available", "reason": "KubeletHasSufficientDisk", "status": "False", "type": "OutOfDisk"}, {"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-10-28T14:47:12Z", "message": "kubelet has sufficient memory available", "reason": "KubeletHasSufficientMemory", "status": "False", "type": "MemoryPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-10-28T14:47:12Z", "message": "kubelet has no disk pressure", "reason": "KubeletHasNoDiskPressure", "status": "False", "type": "DiskPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-10-28T14:47:12Z", "message": "kubelet has sufficient PID available", "reason": "KubeletHasSufficientPID", "status": "False", "type": "PIDPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-10-28T14:47:33Z", "message": "kubelet is posting ready status", "reason": "KubeletReady", "status": "True", "type": "Ready"}], "daemonEndpoints": {"kubeletEndpoint": {"Port": 10250}}, "images": [{"names": ["docker.io/openshift/origin-node@sha256:4240c5346406cb22959e932e6281988c88146c4ed25fe9a275ec0c934d7ca17a", "docker.io/openshift/origin-node:v3.11", "docker.io/openshift/origin-node:v3.11.0"], "sizeBytes": 1174289505}, {"names": ["docker.io/openshift/origin-pod@sha256:6bd70b464bd8042499ed551435947bb97cb07f1778f8fde729d1ea72e3ece318", "docker.io/openshift/origin-pod:v3.11.0"], "sizeBytes": 262150115}, {"names": ["docker.io/openshift/prometheus-node-exporter@sha256:4fc227cd04eba43fdfd5d9a076566bcebad61801b31fd25ee2b3f6a3780e8e1c", "docker.io/openshift/prometheus-node-exporter:v0.16.0"], "sizeBytes": 216339551}, {"names": ["quay.io/coreos/kube-rbac-proxy@sha256:a578315f24e6fd01a65e187e4d1979678598a7d800d039ee5cfe4e11b0b1788d", "quay.io/coreos/kube-rbac-proxy:v0.3.1"], "sizeBytes": 40160345}], "nodeInfo": {"architecture": "amd64", "bootID": "9bf2e3fc-059b-42fb-bc9d-55d3e131381c", "containerRuntimeVersion": "docker://1.13.1", "kernelVersion": "3.10.0-1127.19.1.el7.x86_64", "kubeProxyVersion": "v1.11.0+d4cacc0", "kubeletVersion": "v1.11.0+d4cacc0", "machineID": "f5d217666bec80de9b52c1525f995b83", "operatingSystem": "linux", "osImage": "CentOS Linux 7 (Core)", "systemUUID": "C8D4BDD0-5208-4A0B-BBAF-3A5AA2C8F61F"}}}, {"apiVersion": "v1", "kind": "Node", "metadata": {"annotations": {"node.openshift.io/md5sum": "fe21b1f0e3e9211dc2fc2539601a2a37", "volumes.kubernetes.io/controller-managed-attach-detach": "true"}, "creationTimestamp": "2020-07-23T13:02:48Z", "labels": {"beta.kubernetes.io/arch": "amd64", "beta.kubernetes.io/os": "linux", "kubernetes.io/hostname": "master.faleh.local", "node-role.kubernetes.io/infra": "true", "node-role.kubernetes.io/master": "true"}, "name": "master.faleh.local", "namespace": "", "resourceVersion": "17129547", "selfLink": "/api/v1/nodes/master.faleh.local", "uid": "cf3625bb-cce4-11ea-b453-168917096da6"}, "spec": {}, "status": {"addresses": [{"address": "46.101.141.5", "type": "InternalIP"}, {"address": "master.faleh.local", "type": "Hostname"}], "allocatable": {"cpu": "6", "hugepages-2Mi": "0", "memory": "16163568Ki", "pods": "250"}, "capacity": {"cpu": "6", "hugepages-2Mi": "0", "memory": "16265968Ki", "pods": "250"}, "conditions": [{"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-07-23T13:02:48Z", "message": "kubelet has sufficient disk space available", "reason": "KubeletHasSufficientDisk", "status": "False", "type": "OutOfDisk"}, {"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-07-23T13:02:48Z", "message": "kubelet has sufficient memory available", "reason": "KubeletHasSufficientMemory", "status": "False", "type": "MemoryPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-07-23T13:02:48Z", "message": "kubelet has no disk pressure", "reason": "KubeletHasNoDiskPressure", "status": "False", "type": "DiskPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-07-23T13:02:48Z", "message": "kubelet has sufficient PID available", "reason": "KubeletHasSufficientPID", "status": "False", "type": "PIDPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:29Z", "lastTransitionTime": "2020-07-23T13:07:18Z", "message": "kubelet is posting ready status", "reason": "KubeletReady", "status": "True", "type": "Ready"}], "daemonEndpoints": {"kubeletEndpoint": {"Port": 10250}}, "images": [{"names": ["docker.io/openshift/origin-node@sha256:6b3d5810b070ef601dfbdc37aea59ae2d6d128a8113420870b2d0f981c4e4fe5", "docker.io/openshift/origin-node:v3.11"], "sizeBytes": 1190368616}, {"names": ["docker.io/openshift/origin-control-plane@sha256:f0fdbb69b48cc85f265245b78430e516732eb7394b8ab004bf76f577c81ce159", "docker.io/openshift/origin-control-plane:v3.11"], "sizeBytes": 832684102}, {"names": ["docker.io/openshift/origin-haproxy-router@sha256:8f2175c0cd19a547515bebcc3f382a667a1d2cb662f416195fc330cb57e04e89", "docker.io/openshift/origin-haproxy-router:v3.11"], "sizeBytes": 411666867}, {"names": ["docker.io/openshift/origin-deployer@sha256:5bdcb021cd70146b8977a943c1d27e606ce6745940ba3376f0ab8a2f31e61efc", "docker.io/openshift/origin-deployer:v3.11.0"], "sizeBytes": 384335553}, {"names": ["quay.io/openshift/origin-cluster-monitoring-operator@sha256:d3a6d907629a971f2e72a510e0dacc3d5c589fe1516c2fd3f729d4e786c0ff27", "quay.io/openshift/origin-cluster-monitoring-operator:v3.11"], "sizeBytes": 359861983}, {"names": ["docker.io/openshift/origin-web-console@sha256:20c14ce54de73b9203f03b7ee19f81769b9f404bb7dd81ed0ee4a1b8baecf6d1", "docker.io/openshift/origin-web-console:v3.11"], "sizeBytes": 338566822}, {"names": ["docker.io/openshift/origin-template-service-broker@sha256:4ea8196e2e52959855024ef3362cd5bd21e1a014ecfe9bdf99ed91cbabe3d8ca", "docker.io/openshift/origin-template-service-broker:v3.11"], "sizeBytes": 336079263}, {"names": ["docker.io/openshift/origin-service-catalog@sha256:14c812a2c865fff342e47fc1b3c9f3c3832d5694af35de4ab4cc05200f2b6a7f", "docker.io/openshift/origin-service-catalog:v3.11"], "sizeBytes": 330120767}, {"names": ["docker.io/openshift/prometheus@sha256:8faad95225efc7346d149b893fe169d857c5c5b5de477129b60707f06c170bcc", "docker.io/openshift/prometheus:v2.3.2"], "sizeBytes": 315878328}, {"names": ["docker.io/openshift/origin-docker-registry@sha256:5c2fe22619668face238d1ba8602a95b3102b81e667b54ba2888f1f0ee261ffd", "docker.io/openshift/origin-docker-registry:v3.11"], "sizeBytes": 310099860}, {"names": ["docker.io/openshift/origin-console@sha256:a094da9bc83159998d27e54b90fc68d1e1cd465d1303dd304ee818068c5d0b3f", "docker.io/openshift/origin-console:v3.11"], "sizeBytes": 263682159}, {"names": ["docker.io/openshift/origin-pod@sha256:ec29c8daf56b3fa05daae5df12991f2f2a3196fc957621ad41e44086e4e62499", "docker.io/openshift/origin-pod:v3.11", "docker.io/openshift/origin-pod:v3.11.0"], "sizeBytes": 262132246}, {"names": ["docker.io/grafana/grafana@sha256:104f434d47c8830be44560edc012c31114a104301cdb81bad6e8abc52a2304f9", "docker.io/grafana/grafana:5.2.1"], "sizeBytes": 245293540}, {"names": ["docker.io/openshift/oauth-proxy@sha256:731c1fdad1de4bf68ae9eece5e99519f063fd8d9990da312082b4c995c4e4e33", "docker.io/openshift/oauth-proxy:v1.1.0"], "sizeBytes": 234852780}, {"names": ["docker.io/openshift/prometheus-alertmanager@sha256:2f87cf1296f5bb411ea0eb677df3f5dda97066c5857dd76a153ad97c448f5e92", "docker.io/openshift/prometheus-alertmanager:v0.15.2"], "sizeBytes": 233276981}, {"names": ["docker.io/openshift/prometheus-node-exporter@sha256:4fc227cd04eba43fdfd5d9a076566bcebad61801b31fd25ee2b3f6a3780e8e1c", "docker.io/openshift/prometheus-node-exporter:v0.16.0"], "sizeBytes": 216339551}, {"names": ["quay.io/coreos/prometheus-operator@sha256:8211b3eb30cb8591ddf536f1cf62100f5c97659c14d18dd45001acf94dafd713", "quay.io/coreos/prometheus-operator:v0.23.2"], "sizeBytes": 47036458}, {"names": ["quay.io/coreos/kube-rbac-proxy@sha256:a578315f24e6fd01a65e187e4d1979678598a7d800d039ee5cfe4e11b0b1788d", "quay.io/coreos/kube-rbac-proxy:v0.3.1"], "sizeBytes": 40160345}, {"names": ["quay.io/coreos/etcd@sha256:95bbe1abb3417b81a91904db1ce7784c632a4b07fb362f6aaa21dd4a75494374", "quay.io/coreos/etcd:v3.2.28"], "sizeBytes": 38773385}, {"names": ["quay.io/coreos/kube-state-metrics@sha256:fa2e6d33183755f924f05744c282386f38e962160f66ad0b6a8a24a36884fb9a", "quay.io/coreos/kube-state-metrics:v1.3.1"], "sizeBytes": 22163232}, {"names": ["quay.io/coreos/prometheus-config-reloader@sha256:df1453c7c69e4f2ab8a86fc18fe3b890ce2f80fed6d6519dc9d33927451b214d", "quay.io/coreos/prometheus-config-reloader:v0.23.2"], "sizeBytes": 12209664}, {"names": ["quay.io/coreos/configmap-reload@sha256:e2fd60ff0ae4500a75b80ebaa30e0e7deba9ad107833e8ca53f0047c42c5a057", "quay.io/coreos/configmap-reload:v0.0.1"], "sizeBytes": 4785056}], "nodeInfo": {"architecture": "amd64", "bootID": "3ea25642-bba1-4370-b7e3-4ed7f6b06cac", "containerRuntimeVersion": "docker://1.13.1", "kernelVersion": "3.10.0-1127.13.1.el7.x86_64", "kubeProxyVersion": "v1.11.0+d4cacc0", "kubeletVersion": "v1.11.0+d4cacc0", "machineID": "49cbb8d42a09e2548a5ec4505f197e39", "operatingSystem": "linux", "osImage": "CentOS Linux 7 (Core)", "systemUUID": "6F11C581-00D8-492E-BDD4-A2B03BED04D5"}}}, {"apiVersion": "v1", "kind": "Node", "metadata": {"annotations": {"node.openshift.io/md5sum": "4f14daf37cc5b42b1fe3aa91b11f3d86", "volumes.kubernetes.io/controller-managed-attach-detach": "true"}, "creationTimestamp": "2020-07-23T13:07:12Z", "labels": {"beta.kubernetes.io/arch": "amd64", "beta.kubernetes.io/os": "linux", "kubernetes.io/hostname": "worker.faleh.local", "node-role.kubernetes.io/compute": "true"}, "name": "worker.faleh.local", "namespace": "", "resourceVersion": "17129545", "selfLink": "/api/v1/nodes/worker.faleh.local", "uid": "6c4099c3-cce5-11ea-b453-168917096da6"}, "spec": {}, "status": {"addresses": [{"address": "161.35.205.185", "type": "InternalIP"}, {"address": "worker.faleh.local", "type": "Hostname"}], "allocatable": {"cpu": "6", "hugepages-1Gi": "0", "hugepages-2Mi": "0", "memory": "16163600Ki", "pods": "250"}, "capacity": {"cpu": "6", "hugepages-1Gi": "0", "hugepages-2Mi": "0", "memory": "16266000Ki", "pods": "250"}, "conditions": [{"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-07-23T13:07:12Z", "message": "kubelet has sufficient disk space available", "reason": "KubeletHasSufficientDisk", "status": "False", "type": "OutOfDisk"}, {"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-07-23T13:07:12Z", "message": "kubelet has sufficient memory available", "reason": "KubeletHasSufficientMemory", "status": "False", "type": "MemoryPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-07-23T13:07:12Z", "message": "kubelet has no disk pressure", "reason": "KubeletHasNoDiskPressure", "status": "False", "type": "DiskPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-07-23T13:07:12Z", "message": "kubelet has sufficient PID available", "reason": "KubeletHasSufficientPID", "status": "False", "type": "PIDPressure"}, {"lastHeartbeatTime": "2020-10-28T15:59:28Z", "lastTransitionTime": "2020-07-23T13:07:42Z", "message": "kubelet is posting ready status", "reason": "KubeletReady", "status": "True", "type": "Ready"}], "daemonEndpoints": {"kubeletEndpoint": {"Port": 10250}}, "images": [{"names": ["docker.io/openshift/origin-node@sha256:6b3d5810b070ef601dfbdc37aea59ae2d6d128a8113420870b2d0f981c4e4fe5", "docker.io/openshift/origin-node:v3.11"], "sizeBytes": 1190368616}, {"names": ["docker.io/bitnami/node@sha256:5d01661e9fad774e8dd8e29e7827cacb8864488f79f4180a4f367f5b24b43385", "docker.io/bitnami/node:10.22.0-debian-10-r0"], "sizeBytes": 662582095}, {"names": ["docker.io/bitnami/mongodb@sha256:75b87c8f31cd0ecfd02f480b712ddb1beffb22b550f6b0a848a9eb0d16dc5417", "docker.io/bitnami/mongodb:4.2.3-debian-10-r10"], "sizeBytes": 412533776}, {"names": ["docker.io/bitnami/mongodb@sha256:8057bf05fe72ed8bae59470fe3f9e200b13fbf0d858030f51a30cff9a026d4ee", "docker.io/bitnami/mongodb:latest"], "sizeBytes": 409687576}, {"names": ["docker.io/openshift/origin-pod@sha256:ec29c8daf56b3fa05daae5df12991f2f2a3196fc957621ad41e44086e4e62499", "docker.io/openshift/origin-pod:v3.11", "docker.io/openshift/origin-pod:v3.11.0"], "sizeBytes": 262132246}, {"names": ["docker.io/openshift/prometheus-node-exporter@sha256:4fc227cd04eba43fdfd5d9a076566bcebad61801b31fd25ee2b3f6a3780e8e1c", "docker.io/openshift/prometheus-node-exporter:v0.16.0"], "sizeBytes": 216339551}, {"names": ["docker.io/bitnami/git@sha256:4a003df0641cfef7d30910c607bee42382555b4d5c74147f7d2f8a6e1ca441da", "docker.io/bitnami/git:2.27.0-debian-10-r44"], "sizeBytes": 127140892}, {"names": ["quay.io/coreos/kube-rbac-proxy@sha256:a578315f24e6fd01a65e187e4d1979678598a7d800d039ee5cfe4e11b0b1788d", "quay.io/coreos/kube-rbac-proxy:v0.3.1"], "sizeBytes": 40160345}], "nodeInfo": {"architecture": "amd64", "bootID": "52c11c1e-2230-4b6f-9501-46dce7851a54", "containerRuntimeVersion": "docker://1.13.1", "kernelVersion": "3.10.0-1127.13.1.el7.x86_64", "kubeProxyVersion": "v1.11.0+d4cacc0", "kubeletVersion": "v1.11.0+d4cacc0", "machineID": "c8c4bb3a4750324e6123ea485f197eaf", "operatingSystem": "linux", "osImage": "CentOS Linux 7 (Core)", "systemUUID": "280BEFB7-307B-4640-B76E-674EEAA34B23"}}}], "kind": "List", "metadata": {"resourceVersion": "", "selfLink": ""}}, "raw_failures": [["extworker1.faleh.local", 1, "", "Error from server (ServiceUnavailable): the server is currently unable to handle the request\n"], ["extworker2.faleh.local", 1, "", "Error from server (ServiceUnavailable): the server is currently unable to handle the request\n"]], "rc": 0, "server_approve_results": [], "server_csrs": {}, "state": "unknown", "unwanted_csrs": [{"apiVersion": "certificates.k8s.io/v1beta1", "kind": "CertificateSigningRequest", "metadata": {"creationTimestamp": "2020-10-28T14:47:12Z", "generateName": "csr-", "name": "csr-hfvxj", "namespace": "", "resourceVersion": "17119695", "selfLink": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/csr-hfvxj", "uid": "76c44dc8-192c-11eb-b453-168917096da6"}, "spec": {"groups": ["system:nodes", "system:authenticated"], "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQlRqQ0I5QUlCQURCRU1SVXdFd1lEVlFRS0V3eHplWE4wWlcwNmJtOWtaWE14S3pBcEJnTlZCQU1USW5ONQpjM1JsYlRwdWIyUmxPbVY0ZEhkdmNtdGxjakl1Wm1Gc1pXZ3ViRzlqWVd3d1dUQVRCZ2NxaGtqT1BRSUJCZ2dxCmhrak9QUU1CQndOQ0FBU1lNM3pXQVdZRm5EK0g1RUptMDNuS2thbE9EV1M5TWpoM0l1amJkOTF2VjAwS2JEVm0KRGd5N0syOTdsWWN4UzZabTh6RE5uTFU4L1V2UTVtNTVhK3dnb0U0d1RBWUpLb1pJaHZjTkFRa09NVDh3UFRBNwpCZ05WSFJFRU5EQXlnaFpsZUhSM2IzSnJaWEl5TG1aaGJHVm9MbXh2WTJGc2dnQ0hCSVo2Y2h1SEJBb0tBQkNICkJBcUlBQVdIQkt3UkFBRXdDZ1lJS29aSXpqMEVBd0lEU1FBd1JnSWhBS3RSc2dXbWhINGVBSDhOZGdNeUxFRHMKZVhUZmExSDMvRFVrRkpLSHRnenRBaUVBemtMcUNPaWNZTDVYUjYxYlgwbGhpTjR4MEtaWVo1Zm5henRQTnIwZApIOUk9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=", "usages": ["digital signature", "key encipherment", "server auth"], "username": "system:node:extworker2.faleh.local"}, "status": {"certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN3RENDQWFpZ0F3SUJBZ0lVTkhLamc2SzYreWtqOWhMMnRvUjFmZ0IvdkdBd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JiM0JsYm5Ob2FXWjBMWE5wWjI1bGNrQXhOVGsxTlRBNU1qWTBNQjRYRFRJdwpNVEF5T0RFME5ESXdNRm9YRFRJeE1UQXlPREUwTkRJd01Gb3dSREVWTUJNR0ExVUVDaE1NYzNsemRHVnRPbTV2ClpHVnpNU3N3S1FZRFZRUURFeUp6ZVhOMFpXMDZibTlrWlRwbGVIUjNiM0pyWlhJeUxtWmhiR1ZvTG14dlkyRnMKTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFbUROODFnRm1CWncvaCtSQ1p0TjV5cEdwVGcxawp2VEk0ZHlMbzIzZmRiMWROQ213MVpnNE11eXR2ZTVXSE1VdW1adk13elp5MVBQMUwwT1p1ZVd2c0lLT0JrakNCCmp6QU9CZ05WSFE4QkFmOEVCQU1DQmFBd0V3WURWUjBsQkF3d0NnWUlLd1lCQlFVSEF3RXdEQVlEVlIwVEFRSC8KQkFJd0FEQWRCZ05WSFE0RUZnUVVVQ2J1WllSUUpOT0U1c0U0eC85TVVqTXZpY0F3T3dZRFZSMFJCRFF3TW9JVwpaWGgwZDI5eWEyVnlNaTVtWVd4bGFDNXNiMk5oYklJQWh3U0dlbkliaHdRS0NnQVFod1FLaUFBRmh3U3NFUUFCCk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQk53d3BvMGlCVktHK0JBV1FsUjJaQ1Nzd0N6MW1VaUkzMEtmVHgKcXRMZjhuKzBCbHoxMWxaY3dOZUFrYUYrdGpjWWFwUWhHME1VSUxFQ1FVaWVuTUxZdHIyK1NXdXJ0dUV2eWxjcgp2dmQxQ2pwYjU5T1o0a0dSRWkrZ3RtLzhybERId05NV3Vvak1hY1VtVnpES3JNSnBlVHI3elFwUGJVNjcwb204CjV5SVlMSkQzemZMbWtORW93Z1Y1ZjM5WXNNUm9SclMzVUF0MExBMDJrM2tsVzNBRUpobytZMWs5V2d6cVBqWWwKNjNEU0k4a01qZjY4bDJlSUM2YkpKWk1yY1pvUHZTcWNCd0M5SnBScmdEcTBXSWpFVVZvWlJXL082T0MvSnpvQQpyVk1HQnZuUE0zdW9aRVBVbmxQSHhmMklza0YranJSVFBCTjZhK0FTM2JUMWdSVEkKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=", "conditions": [{"lastUpdateTime": "2020-10-28T14:47:13Z", "message": "This CSR was approved by kubectl certificate approve.", "reason": "KubectlApprove", "type": "Approved"}]}}, {"apiVersion": "certificates.k8s.io/v1beta1", "kind": "CertificateSigningRequest", "metadata": {"creationTimestamp": "2020-10-28T14:47:12Z", "generateName": "csr-", "name": "csr-jb7qv", "namespace": "", "resourceVersion": "17119709", "selfLink": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/csr-jb7qv", "uid": "76947dd5-192c-11eb-b453-168917096da6"}, "spec": {"groups": ["system:nodes", "system:authenticated"], "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQlRUQ0I5QUlCQURCRU1SVXdFd1lEVlFRS0V3eHplWE4wWlcwNmJtOWtaWE14S3pBcEJnTlZCQU1USW5ONQpjM1JsYlRwdWIyUmxPbVY0ZEhkdmNtdGxjakV1Wm1Gc1pXZ3ViRzlqWVd3d1dUQVRCZ2NxaGtqT1BRSUJCZ2dxCmhrak9QUU1CQndOQ0FBU3cybkxkb2pFblBiRWFiWmVoWURoUGhtYXh6R3ZLNDNYdjZiUVdBaXlUMFlneUI5UVMKeGM5N0xMd1ZhVE5UVm8vVTcvaU45VUk2OEtyclpxYU1EcnRhb0U0d1RBWUpLb1pJaHZjTkFRa09NVDh3UFRBNwpCZ05WSFJFRU5EQXlnaFpsZUhSM2IzSnJaWEl4TG1aaGJHVm9MbXh2WTJGc2dnQ0hCTWJIVUlpSEJBb0tBQStICkJBcUlBQVNIQkt3UkFBRXdDZ1lJS29aSXpqMEVBd0lEU0FBd1JRSWhBS1hHNmxneFBubFdlUWdOZCswVnByLzYKT0lRVWEwN1pwTFBpOWY0eHlyeXpBaUI3dGVqdFdTYmlLanpYcjZFNWVzWlVIbFFqTDV3NXYya3ZvbkdOT3B2WAoyZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=", "usages": ["digital signature", "key encipherment", "server auth"], "username": "system:node:extworker1.faleh.local"}, "status": {"certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN3RENDQWFpZ0F3SUJBZ0lVQVQxTzFMaXhmaytCN3F5ZS9ibi9wWk96ZEVVd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JiM0JsYm5Ob2FXWjBMWE5wWjI1bGNrQXhOVGsxTlRBNU1qWTBNQjRYRFRJdwpNVEF5T0RFME5ESXdNRm9YRFRJeE1UQXlPREUwTkRJd01Gb3dSREVWTUJNR0ExVUVDaE1NYzNsemRHVnRPbTV2ClpHVnpNU3N3S1FZRFZRUURFeUp6ZVhOMFpXMDZibTlrWlRwbGVIUjNiM0pyWlhJeExtWmhiR1ZvTG14dlkyRnMKTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFc05weTNhSXhKejJ4R20yWG9XQTRUNFptc2N4cgp5dU4xNyttMEZnSXNrOUdJTWdmVUVzWFBleXk4RldrelUxYVAxTy80amZWQ092Q3E2MmFtakE2N1dxT0JrakNCCmp6QU9CZ05WSFE4QkFmOEVCQU1DQmFBd0V3WURWUjBsQkF3d0NnWUlLd1lCQlFVSEF3RXdEQVlEVlIwVEFRSC8KQkFJd0FEQWRCZ05WSFE0RUZnUVUzKzRSQTMvRTRBNmx5a2QyL0RtWVBGK0FyU0F3T3dZRFZSMFJCRFF3TW9JVwpaWGgwZDI5eWEyVnlNUzVtWVd4bGFDNXNiMk5oYklJQWh3VEd4MUNJaHdRS0NnQVBod1FLaUFBRWh3U3NFUUFCCk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUFMTVZmUlRvVG5mUTdVVWs4M09mYktNKzJkTE1IYnk0Rk9wMVIKcjd0Yk4rY1UxeS9EdzN4R1BXOXlPMTBvbVpQQVAwS204Y2YvWG0yM0paMVdmSW5WcHdReVhaeHpsQ1A3V1FRTgppWENHS3Yzb1JHSDdLa2F3eURKUC9seFhYUlpPZmd6dUVKS2NKK083V0ZUb2E2Tks5L0svL212eFlTYmxMcmp2CmRRaWZyVXRkTkoyb1VoU3JiRUdhV09lcGFFNjdmUTBYRWxxOU82KzluSUJSaDlZS3NqdFdxZi9GT0RjUElUN3YKUG12QUdxU1ozSk9oc1VQMWhmMVZzYkxzaWw1eUlrTTZhRnljUmlXNTBrd1gvbTY3bk1KbzdzZ01RbDlDNC95WQpCdXlkU0xDaEh5Q2YyNGZEVzhXV2tCN3lzV2VkN2dKdE1ZcmFWdmxGaU85UWxpaFYKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=", "conditions": [{"lastUpdateTime": "2020-10-28T14:47:14Z", "message": "This CSR was approved by kubectl certificate approve.", "reason": "KubectlApprove", "type": "Approved"}]}}, {"apiVersion": "certificates.k8s.io/v1beta1", "kind": "CertificateSigningRequest", "metadata": {"creationTimestamp": "2020-10-28T14:47:06Z", "name": "node-csr-49tC7G1WpkQWpHghEhef1hVDyX9S8LaXnzsaImgH_J0", "namespace": "", "resourceVersion": "17119625", "selfLink": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/node-csr-49tC7G1WpkQWpHghEhef1hVDyX9S8LaXnzsaImgH_J0", "uid": "72d9f73e-192c-11eb-b453-168917096da6"}, "spec": {"groups": ["system:serviceaccounts", "system:serviceaccounts:openshift-infra", "system:authenticated"], "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlIL01JR21BZ0VBTUVReEZUQVRCZ05WQkFvVERITjVjM1JsYlRwdWIyUmxjekVyTUNrR0ExVUVBeE1pYzNsegpkR1Z0T201dlpHVTZaWGgwZDI5eWEyVnlNaTVtWVd4bGFDNXNiMk5oYkRCWk1CTUdCeXFHU000OUFnRUdDQ3FHClNNNDlBd0VIQTBJQUJJRU00M3BYZTVxempNWS9UR1RUMjN1YnhxMHdnTFFRWXMrdEd6UmdLdGUvWHNpYzcwWm0KWVJLNFNxZXkvaFhTMWxaaVpkQk1yTVUvR0VZMHpsMnp3MmVnQURBS0JnZ3Foa2pPUFFRREFnTklBREJGQWlFQQp3UFp4RDhoOUhqRVBxak1vRUVtQTJqWi9ZdjkrRDhZZ1pZbzJjbWdZMCtjQ0lFTmU2cFJtNjRUT0J6b1JZY1EyCkhtaXZkU01vZ1BLMVhpbUhmZlF2UmZuQQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K", "uid": "cfb5fc1a-cce4-11ea-b453-168917096da6", "usages": ["digital signature", "key encipherment", "client auth"], "username": "system:serviceaccount:openshift-infra:node-bootstrapper"}, "status": {"certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNnVENDQVdtZ0F3SUJBZ0lVVEVLU0xrcUpHRE5NaWtjclpva05CaXNEVUFNd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JiM0JsYm5Ob2FXWjBMWE5wWjI1bGNrQXhOVGsxTlRBNU1qWTBNQjRYRFRJdwpNVEF5T0RFME5ESXdNRm9YRFRJeE1UQXlPREUwTkRJd01Gb3dSREVWTUJNR0ExVUVDaE1NYzNsemRHVnRPbTV2ClpHVnpNU3N3S1FZRFZRUURFeUp6ZVhOMFpXMDZibTlrWlRwbGVIUjNiM0pyWlhJeUxtWmhiR1ZvTG14dlkyRnMKTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFZ1F6amVsZDdtck9NeGo5TVpOUGJlNXZHclRDQQp0QkJpejYwYk5HQXExNzlleUp6dlJtWmhFcmhLcDdMK0ZkTFdWbUpsMEV5c3hUOFlSalRPWGJQRFo2TlVNRkl3CkRnWURWUjBQQVFIL0JBUURBZ1dnTUJNR0ExVWRKUVFNTUFvR0NDc0dBUVVGQndNQ01Bd0dBMVVkRXdFQi93UUMKTUFBd0hRWURWUjBPQkJZRUZQTk05TE1XSHlUZnhNY1ZRT1hyYkk2anlhbGFNQTBHQ1NxR1NJYjNEUUVCQ3dVQQpBNElCQVFBeEpnVzlMSmNDKzJtMy93NDVnNzlSMnp1dkJHLzR3WVRsSkxTTEc1SEpucXF4VHdrYmpsZkZxNml2CjNjZytDT0Iwbk0reGRITFdOV0xsZm50NkJMNlVaT0xjUG02Y01KaStyOVpJT3Z4bGcyT21wOFhjam1XSnFvQTQKcnZjMHhRQlFrbjBscVlMdVJLWU9XUXg3clByaFdrb0ZPeGxIaG5ucGZhMmJLODJudXpUVk1XMWhhWlhsdFlzTQp6UGlXbWU5bTlnTng4OG1BajBBaTZGUVpBKzZhRXBLOFdUcmhRYXNxRVNqUEsreGJ3N1MyT21tdU03WXcrNWE4CmNhVmczTWdWV0NoYVZmcE5iZEJCZlVxRE5XdGVFejdIRjljMFBwRnZ4VDNhSS92c3NFYXRCNXMyekRvZFd0b3AKMGx0dXJIZFdvSW03SktxZ3pkMHRjS2J0aXlFWQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==", "conditions": [{"lastUpdateTime": "2020-10-28T14:47:12Z", "message": "This CSR was approved by kubectl certificate approve.", "reason": "KubectlApprove", "type": "Approved"}]}}, {"apiVersion": "certificates.k8s.io/v1beta1", "kind": "CertificateSigningRequest", "metadata": {"creationTimestamp": "2020-10-28T14:47:06Z", "name": "node-csr-sNJW8WcvQqBnOlc9Fx0BhFXx748V1wiMUyFqtLkv19o", "namespace": "", "resourceVersion": "17119622", "selfLink": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/node-csr-sNJW8WcvQqBnOlc9Fx0BhFXx748V1wiMUyFqtLkv19o", "uid": "73078e02-192c-11eb-b453-168917096da6"}, "spec": {"groups": ["system:serviceaccounts", "system:serviceaccounts:openshift-infra", "system:authenticated"], "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQkFEQ0JwZ0lCQURCRU1SVXdFd1lEVlFRS0V3eHplWE4wWlcwNmJtOWtaWE14S3pBcEJnTlZCQU1USW5ONQpjM1JsYlRwdWIyUmxPbVY0ZEhkdmNtdGxjakV1Wm1Gc1pXZ3ViRzlqWVd3d1dUQVRCZ2NxaGtqT1BRSUJCZ2dxCmhrak9QUU1CQndOQ0FBUUdSaU9rL2NFcjl4VlV1MTcvY0YwZ0RRalcrdVdDWTR2ZWtOVWUvNG8rSG9UMDVtZ2MKYmUxTzVmQjJDMUlMQWJwZlBnVzNqUGsvQkJwTmlhR2lqV1p3b0FBd0NnWUlLb1pJemowRUF3SURTUUF3UmdJaApBS3MxWUx0WjBWRmROdUlEZUY5UW5BeTM5TVMzSC9oMVZ4cnIySlVGLzNEMUFpRUF5Rm5nL1FFZTJVTmQxWWszCnlGU0hzbzZ3MGpOUWFZODVuMVl1L0tLNTRydz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUgUkVRVUVTVC0tLS0tCg==", "uid": "cfb5fc1a-cce4-11ea-b453-168917096da6", "usages": ["digital signature", "key encipherment", "client auth"], "username": "system:serviceaccount:openshift-infra:node-bootstrapper"}, "status": {"certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNnVENDQVdtZ0F3SUJBZ0lVZFQ0TmYxRTgzc3VDLzdTTFBPTHpRSm55TExjd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JiM0JsYm5Ob2FXWjBMWE5wWjI1bGNrQXhOVGsxTlRBNU1qWTBNQjRYRFRJdwpNVEF5T0RFME5ESXdNRm9YRFRJeE1UQXlPREUwTkRJd01Gb3dSREVWTUJNR0ExVUVDaE1NYzNsemRHVnRPbTV2ClpHVnpNU3N3S1FZRFZRUURFeUp6ZVhOMFpXMDZibTlrWlRwbGVIUjNiM0pyWlhJeExtWmhiR1ZvTG14dlkyRnMKTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFQmtZanBQM0JLL2NWVkx0ZS8zQmRJQTBJMXZybApnbU9MM3BEVkh2K0tQaDZFOU9ab0hHM3RUdVh3ZGd0U0N3RzZYejRGdDR6NVB3UWFUWW1ob28xbWNLTlVNRkl3CkRnWURWUjBQQVFIL0JBUURBZ1dnTUJNR0ExVWRKUVFNTUFvR0NDc0dBUVVGQndNQ01Bd0dBMVVkRXdFQi93UUMKTUFBd0hRWURWUjBPQkJZRUZEb2cyR0lPMW1uQ0sxVlptc1Q4eDBXQk1SSVFNQTBHQ1NxR1NJYjNEUUVCQ3dVQQpBNElCQVFDVUZDdTBOeEQ3TTZtTDRMZWlLYnorZTRiZ0xPOEYwbEZwejE4UG5oQVo4cnhRcU5LcXVTemVXWFc0CkErTHBxQmZmZ1didW5mQlRjaTVJL1dLU3N1NnQ2a25ZZStTWVRHMGlaWGNnTFMySGRMUkJSRzVScXNtRmxIZjAKeXI3TnZMV2FFa1pyZ0FrRUhnbDU3VXpsUHZYRXVaYzJsTEZXeU5ZZ29yYStKamZBbisyY0RXdTM0aUtDWndaSQpYazFwWXFtTjRWT2FQcitBQWNJRHZWNGVwdUsyYndsU1M5d1hHUzc4b2cydURPVjhDR2xKRGNzY3ZMRUNQQ05FCkJid3E5OStlWFBhOWd3VGxwYTA5eG1XZ0t0ek1BNmhMS053V3h2UURIMXVCVnczd0pMUjZHL3ZxWFk5dEV5N28KSnA3ZVRVOFZtZjJOM0pPSFJTOFhZd2w1aWlPSQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==", "conditions": [{"lastUpdateTime": "2020-10-28T14:47:11Z", "message": "This CSR was approved by kubectl certificate approve.", "reason": "KubectlApprove", "type": "Approved"}]}}, {"apiVersion": "certificates.k8s.io/v1beta1", "kind": "CertificateSigningRequest", "metadata": {"creationTimestamp": "2020-10-28T14:47:12Z", "generateName": "csr-", "name": "csr-hfvxj", "namespace": "", "resourceVersion": "17119695", "selfLink": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/csr-hfvxj", "uid": "76c44dc8-192c-11eb-b453-168917096da6"}, "spec": {"groups": ["system:nodes", "system:authenticated"], "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQlRqQ0I5QUlCQURCRU1SVXdFd1lEVlFRS0V3eHplWE4wWlcwNmJtOWtaWE14S3pBcEJnTlZCQU1USW5ONQpjM1JsYlRwdWIyUmxPbVY0ZEhkdmNtdGxjakl1Wm1Gc1pXZ3ViRzlqWVd3d1dUQVRCZ2NxaGtqT1BRSUJCZ2dxCmhrak9QUU1CQndOQ0FBU1lNM3pXQVdZRm5EK0g1RUptMDNuS2thbE9EV1M5TWpoM0l1amJkOTF2VjAwS2JEVm0KRGd5N0syOTdsWWN4UzZabTh6RE5uTFU4L1V2UTVtNTVhK3dnb0U0d1RBWUpLb1pJaHZjTkFRa09NVDh3UFRBNwpCZ05WSFJFRU5EQXlnaFpsZUhSM2IzSnJaWEl5TG1aaGJHVm9MbXh2WTJGc2dnQ0hCSVo2Y2h1SEJBb0tBQkNICkJBcUlBQVdIQkt3UkFBRXdDZ1lJS29aSXpqMEVBd0lEU1FBd1JnSWhBS3RSc2dXbWhINGVBSDhOZGdNeUxFRHMKZVhUZmExSDMvRFVrRkpLSHRnenRBaUVBemtMcUNPaWNZTDVYUjYxYlgwbGhpTjR4MEtaWVo1Zm5henRQTnIwZApIOUk9Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=", "usages": ["digital signature", "key encipherment", "server auth"], "username": "system:node:extworker2.faleh.local"}, "status": {"certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN3RENDQWFpZ0F3SUJBZ0lVTkhLamc2SzYreWtqOWhMMnRvUjFmZ0IvdkdBd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JiM0JsYm5Ob2FXWjBMWE5wWjI1bGNrQXhOVGsxTlRBNU1qWTBNQjRYRFRJdwpNVEF5T0RFME5ESXdNRm9YRFRJeE1UQXlPREUwTkRJd01Gb3dSREVWTUJNR0ExVUVDaE1NYzNsemRHVnRPbTV2ClpHVnpNU3N3S1FZRFZRUURFeUp6ZVhOMFpXMDZibTlrWlRwbGVIUjNiM0pyWlhJeUxtWmhiR1ZvTG14dlkyRnMKTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFbUROODFnRm1CWncvaCtSQ1p0TjV5cEdwVGcxawp2VEk0ZHlMbzIzZmRiMWROQ213MVpnNE11eXR2ZTVXSE1VdW1adk13elp5MVBQMUwwT1p1ZVd2c0lLT0JrakNCCmp6QU9CZ05WSFE4QkFmOEVCQU1DQmFBd0V3WURWUjBsQkF3d0NnWUlLd1lCQlFVSEF3RXdEQVlEVlIwVEFRSC8KQkFJd0FEQWRCZ05WSFE0RUZnUVVVQ2J1WllSUUpOT0U1c0U0eC85TVVqTXZpY0F3T3dZRFZSMFJCRFF3TW9JVwpaWGgwZDI5eWEyVnlNaTVtWVd4bGFDNXNiMk5oYklJQWh3U0dlbkliaHdRS0NnQVFod1FLaUFBRmh3U3NFUUFCCk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQk53d3BvMGlCVktHK0JBV1FsUjJaQ1Nzd0N6MW1VaUkzMEtmVHgKcXRMZjhuKzBCbHoxMWxaY3dOZUFrYUYrdGpjWWFwUWhHME1VSUxFQ1FVaWVuTUxZdHIyK1NXdXJ0dUV2eWxjcgp2dmQxQ2pwYjU5T1o0a0dSRWkrZ3RtLzhybERId05NV3Vvak1hY1VtVnpES3JNSnBlVHI3elFwUGJVNjcwb204CjV5SVlMSkQzemZMbWtORW93Z1Y1ZjM5WXNNUm9SclMzVUF0MExBMDJrM2tsVzNBRUpobytZMWs5V2d6cVBqWWwKNjNEU0k4a01qZjY4bDJlSUM2YkpKWk1yY1pvUHZTcWNCd0M5SnBScmdEcTBXSWpFVVZvWlJXL082T0MvSnpvQQpyVk1HQnZuUE0zdW9aRVBVbmxQSHhmMklza0YranJSVFBCTjZhK0FTM2JUMWdSVEkKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=", "conditions": [{"lastUpdateTime": "2020-10-28T14:47:13Z", "message": "This CSR was approved by kubectl certificate approve.", "reason": "KubectlApprove", "type": "Approved"}]}}, {"apiVersion": "certificates.k8s.io/v1beta1", "kind": "CertificateSigningRequest", "metadata": {"creationTimestamp": "2020-10-28T14:47:12Z", "generateName": "csr-", "name": "csr-jb7qv", "namespace": "", "resourceVersion": "17119709", "selfLink": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/csr-jb7qv", "uid": "76947dd5-192c-11eb-b453-168917096da6"}, "spec": {"groups": ["system:nodes", "system:authenticated"], "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQlRUQ0I5QUlCQURCRU1SVXdFd1lEVlFRS0V3eHplWE4wWlcwNmJtOWtaWE14S3pBcEJnTlZCQU1USW5ONQpjM1JsYlRwdWIyUmxPbVY0ZEhkdmNtdGxjakV1Wm1Gc1pXZ3ViRzlqWVd3d1dUQVRCZ2NxaGtqT1BRSUJCZ2dxCmhrak9QUU1CQndOQ0FBU3cybkxkb2pFblBiRWFiWmVoWURoUGhtYXh6R3ZLNDNYdjZiUVdBaXlUMFlneUI5UVMKeGM5N0xMd1ZhVE5UVm8vVTcvaU45VUk2OEtyclpxYU1EcnRhb0U0d1RBWUpLb1pJaHZjTkFRa09NVDh3UFRBNwpCZ05WSFJFRU5EQXlnaFpsZUhSM2IzSnJaWEl4TG1aaGJHVm9MbXh2WTJGc2dnQ0hCTWJIVUlpSEJBb0tBQStICkJBcUlBQVNIQkt3UkFBRXdDZ1lJS29aSXpqMEVBd0lEU0FBd1JRSWhBS1hHNmxneFBubFdlUWdOZCswVnByLzYKT0lRVWEwN1pwTFBpOWY0eHlyeXpBaUI3dGVqdFdTYmlLanpYcjZFNWVzWlVIbFFqTDV3NXYya3ZvbkdOT3B2WAoyZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=", "usages": ["digital signature", "key encipherment", "server auth"], "username": "system:node:extworker1.faleh.local"}, "status": {"certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN3RENDQWFpZ0F3SUJBZ0lVQVQxTzFMaXhmaytCN3F5ZS9ibi9wWk96ZEVVd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JiM0JsYm5Ob2FXWjBMWE5wWjI1bGNrQXhOVGsxTlRBNU1qWTBNQjRYRFRJdwpNVEF5T0RFME5ESXdNRm9YRFRJeE1UQXlPREUwTkRJd01Gb3dSREVWTUJNR0ExVUVDaE1NYzNsemRHVnRPbTV2ClpHVnpNU3N3S1FZRFZRUURFeUp6ZVhOMFpXMDZibTlrWlRwbGVIUjNiM0pyWlhJeExtWmhiR1ZvTG14dlkyRnMKTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFc05weTNhSXhKejJ4R20yWG9XQTRUNFptc2N4cgp5dU4xNyttMEZnSXNrOUdJTWdmVUVzWFBleXk4RldrelUxYVAxTy80amZWQ092Q3E2MmFtakE2N1dxT0JrakNCCmp6QU9CZ05WSFE4QkFmOEVCQU1DQmFBd0V3WURWUjBsQkF3d0NnWUlLd1lCQlFVSEF3RXdEQVlEVlIwVEFRSC8KQkFJd0FEQWRCZ05WSFE0RUZnUVUzKzRSQTMvRTRBNmx5a2QyL0RtWVBGK0FyU0F3T3dZRFZSMFJCRFF3TW9JVwpaWGgwZDI5eWEyVnlNUzVtWVd4bGFDNXNiMk5oYklJQWh3VEd4MUNJaHdRS0NnQVBod1FLaUFBRWh3U3NFUUFCCk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUFMTVZmUlRvVG5mUTdVVWs4M09mYktNKzJkTE1IYnk0Rk9wMVIKcjd0Yk4rY1UxeS9EdzN4R1BXOXlPMTBvbVpQQVAwS204Y2YvWG0yM0paMVdmSW5WcHdReVhaeHpsQ1A3V1FRTgppWENHS3Yzb1JHSDdLa2F3eURKUC9seFhYUlpPZmd6dUVKS2NKK083V0ZUb2E2Tks5L0svL212eFlTYmxMcmp2CmRRaWZyVXRkTkoyb1VoU3JiRUdhV09lcGFFNjdmUTBYRWxxOU82KzluSUJSaDlZS3NqdFdxZi9GT0RjUElUN3YKUG12QUdxU1ozSk9oc1VQMWhmMVZzYkxzaWw1eUlrTTZhRnljUmlXNTBrd1gvbTY3bk1KbzdzZ01RbDlDNC95WQpCdXlkU0xDaEh5Q2YyNGZEVzhXV2tCN3lzV2VkN2dKdE1ZcmFWdmxGaU85UWxpaFYKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=", "conditions": [{"lastUpdateTime": "2020-10-28T14:47:14Z", "message": "This CSR was approved by kubectl certificate approve.", "reason": "KubectlApprove", "type": "Approved"}]}}, {"apiVersion": "certificates.k8s.io/v1beta1", "kind": "CertificateSigningRequest", "metadata": {"creationTimestamp": "2020-10-28T14:47:06Z", "name": "node-csr-49tC7G1WpkQWpHghEhef1hVDyX9S8LaXnzsaImgH_J0", "namespace": "", "resourceVersion": "17119625", "selfLink": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/node-csr-49tC7G1WpkQWpHghEhef1hVDyX9S8LaXnzsaImgH_J0", "uid": "72d9f73e-192c-11eb-b453-168917096da6"}, "spec": {"groups": ["system:serviceaccounts", "system:serviceaccounts:openshift-infra", "system:authenticated"], "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlIL01JR21BZ0VBTUVReEZUQVRCZ05WQkFvVERITjVjM1JsYlRwdWIyUmxjekVyTUNrR0ExVUVBeE1pYzNsegpkR1Z0T201dlpHVTZaWGgwZDI5eWEyVnlNaTVtWVd4bGFDNXNiMk5oYkRCWk1CTUdCeXFHU000OUFnRUdDQ3FHClNNNDlBd0VIQTBJQUJJRU00M3BYZTVxempNWS9UR1RUMjN1YnhxMHdnTFFRWXMrdEd6UmdLdGUvWHNpYzcwWm0KWVJLNFNxZXkvaFhTMWxaaVpkQk1yTVUvR0VZMHpsMnp3MmVnQURBS0JnZ3Foa2pPUFFRREFnTklBREJGQWlFQQp3UFp4RDhoOUhqRVBxak1vRUVtQTJqWi9ZdjkrRDhZZ1pZbzJjbWdZMCtjQ0lFTmU2cFJtNjRUT0J6b1JZY1EyCkhtaXZkU01vZ1BLMVhpbUhmZlF2UmZuQQotLS0tLUVORCBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0K", "uid": "cfb5fc1a-cce4-11ea-b453-168917096da6", "usages": ["digital signature", "key encipherment", "client auth"], "username": "system:serviceaccount:openshift-infra:node-bootstrapper"}, "status": {"certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNnVENDQVdtZ0F3SUJBZ0lVVEVLU0xrcUpHRE5NaWtjclpva05CaXNEVUFNd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JiM0JsYm5Ob2FXWjBMWE5wWjI1bGNrQXhOVGsxTlRBNU1qWTBNQjRYRFRJdwpNVEF5T0RFME5ESXdNRm9YRFRJeE1UQXlPREUwTkRJd01Gb3dSREVWTUJNR0ExVUVDaE1NYzNsemRHVnRPbTV2ClpHVnpNU3N3S1FZRFZRUURFeUp6ZVhOMFpXMDZibTlrWlRwbGVIUjNiM0pyWlhJeUxtWmhiR1ZvTG14dlkyRnMKTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFZ1F6amVsZDdtck9NeGo5TVpOUGJlNXZHclRDQQp0QkJpejYwYk5HQXExNzlleUp6dlJtWmhFcmhLcDdMK0ZkTFdWbUpsMEV5c3hUOFlSalRPWGJQRFo2TlVNRkl3CkRnWURWUjBQQVFIL0JBUURBZ1dnTUJNR0ExVWRKUVFNTUFvR0NDc0dBUVVGQndNQ01Bd0dBMVVkRXdFQi93UUMKTUFBd0hRWURWUjBPQkJZRUZQTk05TE1XSHlUZnhNY1ZRT1hyYkk2anlhbGFNQTBHQ1NxR1NJYjNEUUVCQ3dVQQpBNElCQVFBeEpnVzlMSmNDKzJtMy93NDVnNzlSMnp1dkJHLzR3WVRsSkxTTEc1SEpucXF4VHdrYmpsZkZxNml2CjNjZytDT0Iwbk0reGRITFdOV0xsZm50NkJMNlVaT0xjUG02Y01KaStyOVpJT3Z4bGcyT21wOFhjam1XSnFvQTQKcnZjMHhRQlFrbjBscVlMdVJLWU9XUXg3clByaFdrb0ZPeGxIaG5ucGZhMmJLODJudXpUVk1XMWhhWlhsdFlzTQp6UGlXbWU5bTlnTng4OG1BajBBaTZGUVpBKzZhRXBLOFdUcmhRYXNxRVNqUEsreGJ3N1MyT21tdU03WXcrNWE4CmNhVmczTWdWV0NoYVZmcE5iZEJCZlVxRE5XdGVFejdIRjljMFBwRnZ4VDNhSS92c3NFYXRCNXMyekRvZFd0b3AKMGx0dXJIZFdvSW03SktxZ3pkMHRjS2J0aXlFWQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==", "conditions": [{"lastUpdateTime": "2020-10-28T14:47:12Z", "message": "This CSR was approved by kubectl certificate approve.", "reason": "KubectlApprove", "type": "Approved"}]}}, {"apiVersion": "certificates.k8s.io/v1beta1", "kind": "CertificateSigningRequest", "metadata": {"creationTimestamp": "2020-10-28T14:47:06Z", "name": "node-csr-sNJW8WcvQqBnOlc9Fx0BhFXx748V1wiMUyFqtLkv19o", "namespace": "", "resourceVersion": "17119622", "selfLink": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/node-csr-sNJW8WcvQqBnOlc9Fx0BhFXx748V1wiMUyFqtLkv19o", "uid": "73078e02-192c-11eb-b453-168917096da6"}, "spec": {"groups": ["system:serviceaccounts", "system:serviceaccounts:openshift-infra", "system:authenticated"], "request": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQkFEQ0JwZ0lCQURCRU1SVXdFd1lEVlFRS0V3eHplWE4wWlcwNmJtOWtaWE14S3pBcEJnTlZCQU1USW5ONQpjM1JsYlRwdWIyUmxPbVY0ZEhkdmNtdGxjakV1Wm1Gc1pXZ3ViRzlqWVd3d1dUQVRCZ2NxaGtqT1BRSUJCZ2dxCmhrak9QUU1CQndOQ0FBUUdSaU9rL2NFcjl4VlV1MTcvY0YwZ0RRalcrdVdDWTR2ZWtOVWUvNG8rSG9UMDVtZ2MKYmUxTzVmQjJDMUlMQWJwZlBnVzNqUGsvQkJwTmlhR2lqV1p3b0FBd0NnWUlLb1pJemowRUF3SURTUUF3UmdJaApBS3MxWUx0WjBWRmROdUlEZUY5UW5BeTM5TVMzSC9oMVZ4cnIySlVGLzNEMUFpRUF5Rm5nL1FFZTJVTmQxWWszCnlGU0hzbzZ3MGpOUWFZODVuMVl1L0tLNTRydz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUgUkVRVUVTVC0tLS0tCg==", "uid": "cfb5fc1a-cce4-11ea-b453-168917096da6", "usages": ["digital signature", "key encipherment", "client auth"], "username": "system:serviceaccount:openshift-infra:node-bootstrapper"}, "status": {"certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNnVENDQVdtZ0F3SUJBZ0lVZFQ0TmYxRTgzc3VDLzdTTFBPTHpRSm55TExjd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JiM0JsYm5Ob2FXWjBMWE5wWjI1bGNrQXhOVGsxTlRBNU1qWTBNQjRYRFRJdwpNVEF5T0RFME5ESXdNRm9YRFRJeE1UQXlPREUwTkRJd01Gb3dSREVWTUJNR0ExVUVDaE1NYzNsemRHVnRPbTV2ClpHVnpNU3N3S1FZRFZRUURFeUp6ZVhOMFpXMDZibTlrWlRwbGVIUjNiM0pyWlhJeExtWmhiR1ZvTG14dlkyRnMKTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFQmtZanBQM0JLL2NWVkx0ZS8zQmRJQTBJMXZybApnbU9MM3BEVkh2K0tQaDZFOU9ab0hHM3RUdVh3ZGd0U0N3RzZYejRGdDR6NVB3UWFUWW1ob28xbWNLTlVNRkl3CkRnWURWUjBQQVFIL0JBUURBZ1dnTUJNR0ExVWRKUVFNTUFvR0NDc0dBUVVGQndNQ01Bd0dBMVVkRXdFQi93UUMKTUFBd0hRWURWUjBPQkJZRUZEb2cyR0lPMW1uQ0sxVlptc1Q4eDBXQk1SSVFNQTBHQ1NxR1NJYjNEUUVCQ3dVQQpBNElCQVFDVUZDdTBOeEQ3TTZtTDRMZWlLYnorZTRiZ0xPOEYwbEZwejE4UG5oQVo4cnhRcU5LcXVTemVXWFc0CkErTHBxQmZmZ1didW5mQlRjaTVJL1dLU3N1NnQ2a25ZZStTWVRHMGlaWGNnTFMySGRMUkJSRzVScXNtRmxIZjAKeXI3TnZMV2FFa1pyZ0FrRUhnbDU3VXpsUHZYRXVaYzJsTEZXeU5ZZ29yYStKamZBbisyY0RXdTM0aUtDWndaSQpYazFwWXFtTjRWT2FQcitBQWNJRHZWNGVwdUsyYndsU1M5d1hHUzc4b2cydURPVjhDR2xKRGNzY3ZMRUNQQ05FCkJid3E5OStlWFBhOWd3VGxwYTA5eG1XZ0t0ek1BNmhMS053V3h2UURIMXVCVnczd0pMUjZHL3ZxWFk5dEV5N28KSnA3ZVRVOFZtZjJOM0pPSFJTOFhZd2w1aWlPSQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==", "conditions": [{"lastUpdateTime": "2020-10-28T14:47:11Z", "message": "This CSR was approved by kubectl certificate approve.", "reason": "KubectlApprove", "type": "Approved"}]}}]}
+
+PLAY RECAP *******************************************************************************************************************
+134.122.114.27             : ok=19   changed=2    unreachable=0    failed=0    skipped=31   rescued=0    ignored=0   
+161.35.205.185             : ok=14   changed=0    unreachable=0    failed=0    skipped=28   rescued=0    ignored=0   
+198.199.80.136             : ok=20   changed=2    unreachable=0    failed=0    skipped=31   rescued=0    ignored=0   
+46.101.141.5               : ok=52   changed=0    unreachable=0    failed=1    skipped=36   rescued=0    ignored=0   
+localhost                  : ok=11   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+
+
+INSTALLER STATUS *************************************************************************************************************
+Initialization  : Complete (0:00:50)
+Node Join       : In Progress (0:03:50)
+	This phase can be restarted by running: playbooks/openshift-node/join.yml
