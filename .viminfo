@@ -56,7 +56,7 @@
 # Input Line History (newest to oldest):
 
 # Registers:
-""1	BLOCK	1
+"1	BLOCK	1
 	##
 	##
 	##
@@ -84,11 +84,11 @@
 "5	LINE	0
 	    ports:
 	      - port: 1
-"-	CHAR	0
-	#
+""-	CHAR	0
+	^
 
 # File marks:
-'0  1  2  ~/.gitignore
+'0  1  0  ~/.gitignore
 '1  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 '2  41  0  ~/inventory.ini
 '3  768  0  ~/scale/out
@@ -100,7 +100,7 @@
 '9  1  0  ~/helm-charts/stable/mongodb/Chart.yaml
 
 # Jumplist (newest first):
--'  1  2  ~/.gitignore
+-'  1  0  ~/.gitignore
 -'  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 -'  43  2  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 -'  41  0  ~/inventory.ini
@@ -197,15 +197,14 @@
 -'  68  35  ~/helm-charts/stable/mongodb/values.yaml
 -'  47  138  ~/helm-charts/stable/mongodb/values.yaml
 -'  430  3  ~/helm-charts/stable/mongodb/values.yaml
--'  354  75  ~/helm-charts/stable/mongodb/values.yaml
 
 # History of marks within files (newest to oldest):
 
 > ~/.gitignore
-	"	1	2
+	"	1	0
 	^	1	3
-	.	1	2
-	+	1	2
+	.	1	0
+	+	1	0
 
 > ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 	"	53	12
