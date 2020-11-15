@@ -88,19 +88,20 @@
 	^
 
 # File marks:
-'0  2  10  ~/.gitignore
-'1  1  0  ~/.gitignore
-'2  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
-'3  41  0  ~/inventory.ini
-'4  768  0  ~/scale/out
-'5  43  2  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
-'6  763  8  ~/scale/out
-'7  14  63  ~/inventory.ini
-'8  22  14  /etc/hosts
-'9  20  0  /etc/hosts
+'0  9  7  ~/.gitignore
+'1  10  10  ~/.gitignore
+'2  1  0  ~/.gitignore
+'3  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
+'4  41  0  ~/inventory.ini
+'5  768  0  ~/scale/out
+'6  43  2  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
+'7  763  8  ~/scale/out
+'8  14  63  ~/inventory.ini
+'9  22  14  /etc/hosts
 
 # Jumplist (newest first):
--'  2  10  ~/.gitignore
+-'  9  7  ~/.gitignore
+-'  10  0  ~/.gitignore
 -'  1  0  ~/.gitignore
 -'  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 -'  43  2  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
@@ -197,16 +198,16 @@
 -'  125  15  ~/helm-charts/stable/mongodb/values.yaml
 -'  68  35  ~/helm-charts/stable/mongodb/values.yaml
 -'  47  138  ~/helm-charts/stable/mongodb/values.yaml
--'  430  3  ~/helm-charts/stable/mongodb/values.yaml
 
 # History of marks within files (newest to oldest):
 
 > ~/.gitignore
-	"	2	10
-	^	2	11
-	.	2	10
+	"	9	7
+	^	9	8
+	.	10	0
 	+	1	2
-	+	2	10
+	+	10	10
+	+	10	0
 
 > ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 	"	53	12

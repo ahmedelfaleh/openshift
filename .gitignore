@@ -1,2 +1,10 @@
-.*
+.bash*
+.ssh
+.cloud-locale-test.skip
+.cshrc
+.inventory.ini.swp
+.lesshst
+.rnd
+.tcshrc
+.viminfo
 !.gitignore
