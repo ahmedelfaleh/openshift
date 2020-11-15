@@ -88,7 +88,7 @@
 	^
 
 # File marks:
-'0  1  0  ~/.gitignore
+'0  1  1  ~/.gitignore
 '1  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 '2  41  0  ~/inventory.ini
 '3  768  0  ~/scale/out
@@ -100,7 +100,7 @@
 '9  1  0  ~/helm-charts/stable/mongodb/Chart.yaml
 
 # Jumplist (newest first):
--'  1  0  ~/.gitignore
+-'  1  1  ~/.gitignore
 -'  53  12  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 -'  43  2  ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 -'  41  0  ~/inventory.ini
@@ -201,10 +201,10 @@
 # History of marks within files (newest to oldest):
 
 > ~/.gitignore
-	"	1	0
-	^	1	1
-	.	1	0
-	+	1	0
+	"	1	1
+	^	1	2
+	.	1	1
+	+	1	1
 
 > ~/openshift-ansible/playbooks/openshift-node/private/join.yml
 	"	53	12
