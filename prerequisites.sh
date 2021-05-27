@@ -22,6 +22,7 @@ yum install -y python-devel
 yum install -y python-passlib
 yum install -y java-1.8.0-openjdk-headless "@Development Tools"
 yum install -y epel-release
+yum install -y centos-release-ansible-29.noarch
 # Disable the EPEL repository globally so that is not accidentally used during later steps of the installation
 sed -i -e "s/^enabled=1/enabled=0/" /etc/yum.repos.d/epel.repo
 systemctl | grep "NetworkManager.*running"
